@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+:root {
+  font-family: 'Itim', cursive, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #213547;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f0f0f0; /* Light background for desktop view */
+}
+
+#app {
+  width: 100%;
+  max-width: 480px; /* Mobile width cap */
+  height: 100vh;
+  max-height: 900px; /* Optional max height for desktop aesthetics */
+  background-color: #ffffff; /* App background */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar hiding for clean UI */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
