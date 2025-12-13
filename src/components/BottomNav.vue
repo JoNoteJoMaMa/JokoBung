@@ -133,7 +133,7 @@ defineEmits(['toggle-popup', 'finish']);
   padding: 1rem;
   background-color: transparent; /* Floating effect */
   border-top: none;
-  z-index: 10;
+  z-index: 2000;
   gap: 1rem;
   pointer-events: none; /* Let clicks pass through gaps */
 }

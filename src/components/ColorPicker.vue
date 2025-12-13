@@ -3,16 +3,10 @@ import { ref } from 'vue';
 
 const emit = defineEmits(['add', 'close']);
 
-const colorType = ref('solid'); // 'solid' or 'gradient'
 const color1 = ref('#ff0000');
-const color2 = ref('#0000ff');
 
 const addColor = () => {
-  let finalColor = color1.value;
-  if (colorType.value === 'gradient') {
-    finalColor = `linear-gradient(to bottom, ${color1.value}, ${color2.value})`;
-  }
-  emit('add', finalColor);
+  emit('add', color1.value);
   emit('close');
 };
 </script>
@@ -22,35 +16,11 @@ const addColor = () => {
     <div class="picker-box">
       <h3>Add New Color</h3>
 
-      <div class="type-selector">
-        <button
-          :class="{ active: colorType === 'solid' }"
-          @click="colorType = 'solid'"
-        >
-          Solid
-        </button>
-        <button
-          :class="{ active: colorType === 'gradient' }"
-          @click="colorType = 'gradient'"
-        >
-          Gradient
-        </button>
-      </div>
-
       <div class="inputs">
         <input type="color" v-model="color1" />
-        <input v-if="colorType === 'gradient'" type="color" v-model="color2" />
       </div>
 
-      <div
-        class="preview"
-        :style="{
-          background:
-            colorType === 'gradient'
-              ? `linear-gradient(to bottom, ${color1}, ${color2})`
-              : color1,
-        }"
-      ></div>
+      <div class="preview" :style="{ background: color1 }"></div>
 
       <div class="actions">
         <button @click="$emit('close')">Cancel</button>
@@ -82,26 +52,6 @@ const addColor = () => {
   max-width: 300px;
   text-align: center;
   color: #000;
-}
-
-.type-selector {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 1rem;
-}
-
-.type-selector button {
-  padding: 5px 10px;
-  background: #e0e0e0;
-  border: none;
-  color: #333;
-  border-radius: 4px;
-}
-
-.type-selector button.active {
-  background: #646cff;
-  color: white;
 }
 
 .inputs {

@@ -16,7 +16,7 @@ const props = defineProps({
     default: false,
   },
   selectedValue: {
-    type: [String, Object],
+    type: [String, Object, Array],
     default: null,
   },
 });
@@ -38,7 +38,11 @@ const emit = defineEmits(['select', 'add']);
         <div
           v-if="item.type === 'color'"
           class="color-swatch"
-          :class="{ selected: item.value === selectedValue }"
+          :class="{
+            selected: Array.isArray(selectedValue)
+              ? selectedValue.includes(item.value)
+              : item.value === selectedValue,
+          }"
           :style="{ backgroundColor: item.value }"
         ></div>
 
@@ -106,7 +110,11 @@ const emit = defineEmits(['select', 'add']);
           <div
             v-else
             class="image-box"
-            :class="{ selected: item.value === selectedValue }"
+            :class="{
+              selected: Array.isArray(selectedValue)
+                ? selectedValue.includes(item.value)
+                : item.value === selectedValue,
+            }"
           >
             <SkeletonImage :src="item.value" :alt="item.label" />
           </div>
@@ -119,6 +127,24 @@ const emit = defineEmits(['select', 'add']);
         <div v-if="item.type === 'category'" class="folder-box">
           <!-- Reuse folder style but maybe different icon -->
           <svg
+            v-if="item.icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            :viewBox="item.icon.viewBox || '0 0 24 24'"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path :d="item.icon.path"></path>
+            <template v-if="item.icon.paths">
+              <path v-for="(p, idx) in item.icon.paths" :key="idx" :d="p" />
+            </template>
+          </svg>
+          <svg
+            v-else
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

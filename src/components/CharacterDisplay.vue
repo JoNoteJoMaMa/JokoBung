@@ -24,12 +24,13 @@ const props = defineProps({
       shirt: null,
       pant: null,
       shoes: null,
-      hands: null,
+      left_hand: null,
+      right_hand: null,
     }),
   },
-  etc: {
-    type: Object,
-    default: () => ({}),
+  layers: {
+    type: Array,
+    default: () => [{ type: 'character' }],
   },
 });
 
@@ -94,88 +95,86 @@ const earsSkinStyle = computed(() => {
 
 <template>
   <div class="character-display">
-    <!-- Body Layer -->
-    <!-- Back Accessories (e.g. Wings, Tail) -->
-    <!-- We iterate etc and show all, but order matters. 
-         If known keys, we place them. If unknown, we place them somewhere.
-         Let's place specific known keys 'wings', 'tail' behind body. -->
-    <img v-if="etc.wings" :src="etc.wings" class="layer wings" alt="Wings" />
-    <img v-if="etc.tail" :src="etc.tail" class="layer tail" alt="Tail" />
+    <template v-for="(layer, index) in layers" :key="layer.id || index">
+      <!-- Character Composite Layer -->
+      <div
+        v-if="layer.type === 'character'"
+        class="layer-group character-composite"
+      >
+        <!-- Body Layer -->
+        <div class="layer body-skin" :style="bodySkinStyle"></div>
+        <img
+          src="/templates/bodies/Body_lineart.PNG"
+          class="layer body-lineart"
+          alt="Body Lineart"
+        />
 
-    <!-- Skin Layers (Tinted) -->
-    <div class="layer body-skin" :style="bodySkinStyle"></div>
-    <img
-      src="/templates/bodies/Body_lineart.PNG"
-      class="layer body-lineart"
-      alt="Body Lineart"
-    />
+        <!-- Ears Layers -->
+        <div class="layer ears-skin" :style="earsSkinStyle"></div>
+        <img
+          :src="props.face.ears || '/templates/ears/Ears_lineart.PNG'"
+          class="layer ears-lineart"
+          alt="Ears Lineart"
+        />
 
-    <!-- Ears Layers -->
+        <!-- Face Layer -->
+        <div class="layer eye-inner" :style="eyeInnerStyle"></div>
+        <img
+          v-if="face.face"
+          :src="face.face"
+          class="layer face-features"
+          alt="Face Features"
+        />
+        <img v-if="face.hair" :src="face.hair" class="layer hair" alt="Hair" />
 
-    <div class="layer ears-skin" :style="earsSkinStyle"></div>
-    <img
-      :src="props.face.ears || '/templates/ears/Ears_lineart.PNG'"
-      class="layer ears-lineart"
-      alt="Ears Lineart"
-    />
+        <!-- Clothes Layers -->
+        <img
+          v-if="clothes.shoes"
+          :src="clothes.shoes"
+          class="layer shoes"
+          alt="Shoes"
+        />
+        <img
+          v-if="clothes.pant"
+          :src="clothes.pant"
+          class="layer pant"
+          alt="Pant"
+        />
+        <img
+          v-if="clothes.shirt"
+          :src="clothes.shirt"
+          class="layer shirt"
+          alt="Shirt"
+        />
+        <img
+          v-if="clothes.head"
+          :src="clothes.head"
+          class="layer head"
+          alt="Head"
+        />
+        <img
+          v-if="clothes.left_hand"
+          :src="clothes.left_hand"
+          class="layer left-hand"
+          alt="Left Hand"
+        />
+        <img
+          v-if="clothes.right_hand"
+          :src="clothes.right_hand"
+          class="layer right-hand"
+          alt="Right Hand"
+        />
+      </div>
 
-    <!-- Front Accessories from Etc (everything else or specific?) -->
-    <template v-for="(src, key) in etc">
+      <!-- Image Layer (Etc) -->
       <img
-        v-if="src && key !== 'wings' && key !== 'tail'"
-        :key="key"
-        :src="src"
-        class="layer etc-item"
-        :class="key"
-        :alt="key"
+        v-else-if="layer.type === 'image'"
+        :src="layer.value"
+        class="layer etc-layer"
+        :alt="layer.label"
+        :style="{ zIndex: index }"
       />
     </template>
-
-    <!-- Face Layer -->
-    <!-- Face Layer (Features) -->
-    <!-- Inner Eye Layer (Tinted) - Moved to front as requested -->
-    <div class="layer eye-inner" :style="eyeInnerStyle"></div>
-    <img
-      v-if="face.face"
-      :src="face.face"
-      class="layer face-features"
-      alt="Face Features"
-    />
-    <!-- Hair Layer (Behind Head/Hat or Over?) -> Usually Hair is top, but 'Head' (hat) might be higher. 
-         Let's put Hair here. User asked for Hair and Face categories. -->
-    <img v-if="face.hair" :src="face.hair" class="layer hair" alt="Hair" />
-
-    <!-- Clothes Layers -->
-    <img
-      v-if="clothes.shoes"
-      :src="clothes.shoes"
-      class="layer shoes"
-      alt="Shoes"
-    />
-    <img
-      v-if="clothes.pant"
-      :src="clothes.pant"
-      class="layer pant"
-      alt="Pant"
-    />
-    <img
-      v-if="clothes.shirt"
-      :src="clothes.shirt"
-      class="layer shirt"
-      alt="Shirt"
-    />
-    <img
-      v-if="clothes.hands"
-      :src="clothes.hands"
-      class="layer hands"
-      alt="Hands"
-    />
-    <img
-      v-if="clothes.head"
-      :src="clothes.head"
-      class="layer head"
-      alt="Head"
-    />
   </div>
 </template>
 
@@ -199,8 +198,13 @@ const earsSkinStyle = computed(() => {
   box-sizing: border-box;
 }
 
-.body-skin,
-.ears-skin {
-  /* Dimensions handled by .layer, mask handles shape */
+/* .body-skin and .ears-skin rules moved or removed if empty */
+.layer-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 </style>

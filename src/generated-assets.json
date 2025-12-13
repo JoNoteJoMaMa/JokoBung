@@ -1,0 +1,1401 @@
+{
+  "faces": [
+    {
+      "id": "ears",
+      "label": "Ears",
+      "type": "folder",
+      "children": [
+        {
+          "id": "ซัน",
+          "label": "ซัน",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Elf_bg",
+              "label": "Elf Bg",
+              "type": "image",
+              "value": "/src/assets/faces/ears/ซัน/Elf_bg.PNG"
+            },
+            {
+              "id": "Elf_stroke",
+              "label": "Elf Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/ears/ซัน/Elf_stroke.PNG"
+            },
+            {
+              "id": "Rabbit ear_bg",
+              "label": "Rabbit ear Bg",
+              "type": "image",
+              "value": "/src/assets/faces/ears/ซัน/Rabbit ear_bg.PNG"
+            },
+            {
+              "id": "Rabbit ear_stroke",
+              "label": "Rabbit ear Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/ears/ซัน/Rabbit ear_stroke.PNG"
+            }
+          ]
+        },
+        {
+          "id": "วิว",
+          "label": "วิว",
+          "type": "folder",
+          "children": [
+            {
+              "id": "5",
+              "label": "5",
+              "type": "image",
+              "value": "/src/assets/faces/ears/วิว/5.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "face",
+      "label": "Face",
+      "type": "folder",
+      "children": [
+        {
+          "id": "จีโน่",
+          "label": "จีโน่",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ซัน",
+          "label": "ซัน",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Freak Ugly hamster ",
+              "label": "Freak Ugly hamster ",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Freak Ugly hamster .PNG"
+            },
+            {
+              "id": "Goth face",
+              "label": "Goth face",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Goth face.PNG"
+            },
+            {
+              "id": "Hot face",
+              "label": "Hot face",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Hot face.PNG"
+            },
+            {
+              "id": "Hot face_bg",
+              "label": "Hot face Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Hot face_bg.PNG"
+            },
+            {
+              "id": "Manba face_stroke",
+              "label": "Manba face Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Manba face_stroke.PNG"
+            },
+            {
+              "id": "Manba inner eye_bg",
+              "label": "Manba inner eye Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Manba inner eye_bg.PNG"
+            },
+            {
+              "id": "Ugly hamster ",
+              "label": "Ugly hamster ",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Ugly hamster .PNG"
+            },
+            {
+              "id": "ドキドキ face",
+              "label": "ドキドキ face",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/ドキドキ face.PNG"
+            }
+          ]
+        },
+        {
+          "id": "ตานา",
+          "label": "ตานา",
+          "type": "folder",
+          "children": [
+            {
+              "id": "หน้า1_template_face_bg",
+              "label": "หน้า1 Template Face Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/ตานา/หน้า1_template_face_bg.png"
+            },
+            {
+              "id": "หน้า2",
+              "label": "หน้า2",
+              "type": "image",
+              "value": "/src/assets/faces/face/ตานา/หน้า2.png"
+            },
+            {
+              "id": "หน้า3_template_face_bg",
+              "label": "หน้า3 Template Face Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/ตานา/หน้า3_template_face_bg.png"
+            },
+            {
+              "id": "หน้า4_template_face_bg",
+              "label": "หน้า4 Template Face Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/ตานา/หน้า4_template_face_bg.png"
+            }
+          ]
+        },
+        {
+          "id": "วิว",
+          "label": "วิว",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "เค",
+          "label": "เค",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "เซ็น",
+          "label": "เซ็น",
+          "type": "folder",
+          "children": [
+            {
+              "id": "ขอร้อง",
+              "label": "ขอร้อง",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/ขอร้อง.png"
+            },
+            {
+              "id": "ขอร้อง_bg",
+              "label": "ขอร้อง Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/ขอร้อง_bg.png"
+            },
+            {
+              "id": "ขอร้อง_stroke",
+              "label": "ขอร้อง Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/ขอร้อง_stroke.png"
+            },
+            {
+              "id": "หน้าอวดดี",
+              "label": "หน้าอวดดี",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/หน้าอวดดี.png"
+            },
+            {
+              "id": "หน้าอวดดี_bg",
+              "label": "หน้าอวดดี Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/หน้าอวดดี_bg.png"
+            },
+            {
+              "id": "หน้าอวดดี_stroke",
+              "label": "หน้าอวดดี Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/หน้าอวดดี_stroke.png"
+            },
+            {
+              "id": "เนย์จ๊อบหน้า",
+              "label": "เนย์จ๊อบหน้า",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/เนย์จ๊อบหน้า.png"
+            },
+            {
+              "id": "เนย์จ๊อบหน้า_bg",
+              "label": "เนย์จ๊อบหน้า Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/เนย์จ๊อบหน้า_bg.png"
+            },
+            {
+              "id": "เนย์จ๊อบหน้า_stroke",
+              "label": "เนย์จ๊อบหน้า Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/เนย์จ๊อบหน้า_stroke.png"
+            },
+            {
+              "id": "เยาะเย้ย",
+              "label": "เยาะเย้ย",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/เยาะเย้ย.png"
+            },
+            {
+              "id": "เยาะเย้ย_bg",
+              "label": "เยาะเย้ย Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/เยาะเย้ย_bg.png"
+            },
+            {
+              "id": "เยาะเย้ย_stroke",
+              "label": "เยาะเย้ย Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/face/เซ็น/เยาะเย้ย_stroke.png"
+            }
+          ]
+        },
+        {
+          "id": "แก้ม",
+          "label": "แก้ม",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Chi be",
+              "label": "Chi be",
+              "type": "image",
+              "value": "/src/assets/faces/face/แก้ม/Chi be.png"
+            }
+          ]
+        },
+        {
+          "id": "แอ้ม",
+          "label": "แอ้ม",
+          "type": "folder",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "hair",
+      "label": "Hair",
+      "type": "folder",
+      "children": [
+        {
+          "id": "จีโน่",
+          "label": "จีโน่",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ซัน",
+          "label": "ซัน",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Goth hair",
+              "label": "Goth hair",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ซัน/Goth hair.PNG"
+            },
+            {
+              "id": "Himecut_back",
+              "label": "Himecut Back",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ซัน/Himecut_back.PNG"
+            },
+            {
+              "id": "Himecut_front",
+              "label": "Himecut Front",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ซัน/Himecut_front.PNG"
+            },
+            {
+              "id": "Manba hair_back",
+              "label": "Manba hair Back",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ซัน/Manba hair_back.PNG"
+            },
+            {
+              "id": "Manba hair_front",
+              "label": "Manba hair Front",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ซัน/Manba hair_front.PNG"
+            },
+            {
+              "id": "Tom chicken head",
+              "label": "Tom chicken head",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ซัน/Tom chicken head.PNG"
+            }
+          ]
+        },
+        {
+          "id": "ตานา",
+          "label": "ตานา",
+          "type": "folder",
+          "children": [
+            {
+              "id": "ผม1",
+              "label": "ผม1",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ตานา/ผม1.png"
+            },
+            {
+              "id": "ผม2",
+              "label": "ผม2",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ตานา/ผม2.png"
+            },
+            {
+              "id": "ผม3",
+              "label": "ผม3",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ตานา/ผม3.png"
+            },
+            {
+              "id": "ผม4",
+              "label": "ผม4",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ตานา/ผม4.png"
+            },
+            {
+              "id": "ผม5",
+              "label": "ผม5",
+              "type": "image",
+              "value": "/src/assets/faces/hair/ตานา/ผม5.png"
+            }
+          ]
+        },
+        {
+          "id": "วิว",
+          "label": "วิว",
+          "type": "folder",
+          "children": [
+            {
+              "id": "19",
+              "label": "19",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/19.png"
+            },
+            {
+              "id": "1_bg",
+              "label": "1 Bg",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/1_bg.png"
+            },
+            {
+              "id": "1_stroke",
+              "label": "1 Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/1_stroke.png"
+            },
+            {
+              "id": "20",
+              "label": "20",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/20.png"
+            },
+            {
+              "id": "21",
+              "label": "21",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/21.png"
+            },
+            {
+              "id": "3_bg",
+              "label": "3 Bg",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/3_bg.png"
+            },
+            {
+              "id": "3_stroke",
+              "label": "3 Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/3_stroke.png"
+            },
+            {
+              "id": "ผม",
+              "label": "ผม",
+              "type": "folder",
+              "children": [
+                {
+                  "id": "12_bg",
+                  "label": "12 Bg",
+                  "type": "image",
+                  "value": "/src/assets/faces/hair/วิว/ผม/12_bg.png"
+                },
+                {
+                  "id": "12_stroke",
+                  "label": "12 Stroke",
+                  "type": "image",
+                  "value": "/src/assets/faces/hair/วิว/ผม/12_stroke.png"
+                }
+              ]
+            },
+            {
+              "id": "ผม2",
+              "label": "ผม2",
+              "type": "folder",
+              "children": [
+                {
+                  "id": "16_bg",
+                  "label": "16 Bg",
+                  "type": "image",
+                  "value": "/src/assets/faces/hair/วิว/ผม2/16_bg.png"
+                },
+                {
+                  "id": "16_stroke",
+                  "label": "16 Stroke",
+                  "type": "image",
+                  "value": "/src/assets/faces/hair/วิว/ผม2/16_stroke.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "เค",
+          "label": "เค",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "เซ็น",
+          "label": "เซ็น",
+          "type": "folder",
+          "children": [
+            {
+              "id": "ผมม่วงหน้า",
+              "label": "ผมม่วงหน้า",
+              "type": "image",
+              "value": "/src/assets/faces/hair/เซ็น/ผมม่วงหน้า.png"
+            },
+            {
+              "id": "ผมหลัง(1)",
+              "label": "ผมหลัง(1)",
+              "type": "image",
+              "value": "/src/assets/faces/hair/เซ็น/ผมหลัง(1).png"
+            },
+            {
+              "id": "ผมหลัง",
+              "label": "ผมหลัง",
+              "type": "image",
+              "value": "/src/assets/faces/hair/เซ็น/ผมหลัง.png"
+            },
+            {
+              "id": "ผมหลังม่วง",
+              "label": "ผมหลังม่วง",
+              "type": "image",
+              "value": "/src/assets/faces/hair/เซ็น/ผมหลังม่วง.png"
+            }
+          ]
+        },
+        {
+          "id": "แก้ม",
+          "label": "แก้ม",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "แอ้ม",
+          "label": "แอ้ม",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Jk",
+              "label": "Jk",
+              "type": "image",
+              "value": "/src/assets/faces/hair/แอ้ม/Jk.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "clothes": [
+    {
+      "id": "hands",
+      "label": "Hands",
+      "type": "folder",
+      "children": [
+        {
+          "id": "จีโน่",
+          "label": "จีโน่",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ซัน",
+          "label": "ซัน",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Ju๋(1)",
+              "label": "Ju๋(1)",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ซัน/Ju๋(1).PNG"
+            },
+            {
+              "id": "Ju๋",
+              "label": "Ju๋",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ซัน/Ju๋.PNG"
+            },
+            {
+              "id": "Manba phone ",
+              "label": "Manba phone ",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ซัน/Manba phone .PNG"
+            },
+            {
+              "id": "Tissue ",
+              "label": "Tissue ",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ซัน/Tissue .PNG"
+            },
+            {
+              "id": "ไส้ไหล",
+              "label": "ไส้ไหล",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ซัน/ไส้ไหล.PNG"
+            }
+          ]
+        },
+        {
+          "id": "ตานา",
+          "label": "ตานา",
+          "type": "folder",
+          "children": [
+            {
+              "id": "ของถือ1",
+              "label": "ของถือ1",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ตานา/ของถือ1.png"
+            },
+            {
+              "id": "ของถือ2",
+              "label": "ของถือ2",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ตานา/ของถือ2.png"
+            },
+            {
+              "id": "ของถือ3",
+              "label": "ของถือ3",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ตานา/ของถือ3.png"
+            },
+            {
+              "id": "ของถือ4",
+              "label": "ของถือ4",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ตานา/ของถือ4.png"
+            },
+            {
+              "id": "ของถือ5",
+              "label": "ของถือ5",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ตานา/ของถือ5.png"
+            },
+            {
+              "id": "ของถือ6",
+              "label": "ของถือ6",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/ตานา/ของถือ6.png"
+            }
+          ]
+        },
+        {
+          "id": "วิว",
+          "label": "วิว",
+          "type": "folder",
+          "children": [
+            {
+              "id": "8",
+              "label": "8",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/วิว/8.png"
+            }
+          ]
+        },
+        {
+          "id": "เค",
+          "label": "เค",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "เซ็น",
+          "label": "เซ็น",
+          "type": "folder",
+          "children": [
+            {
+              "id": "แคน",
+              "label": "แคน",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/เซ็น/แคน.png"
+            }
+          ]
+        },
+        {
+          "id": "แก้ม",
+          "label": "แก้ม",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "แอ้ม",
+          "label": "แอ้ม",
+          "type": "folder",
+          "children": [
+            {
+              "id": "ข้อมือกระต่ายหวานเจ๊๊ยบ",
+              "label": "ข้อมือกระต่ายหวานเจ๊๊ยบ",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/แอ้ม/ข้อมือกระต่ายหวานเจ๊๊ยบ.png"
+            },
+            {
+              "id": "ลูกอม",
+              "label": "ลูกอม",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/แอ้ม/ลูกอม.png"
+            },
+            {
+              "id": "ลูกแพร",
+              "label": "ลูกแพร",
+              "type": "image",
+              "value": "/src/assets/clothes/hands/แอ้ม/ลูกแพร.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "head",
+      "label": "Head",
+      "type": "folder",
+      "children": [
+        {
+          "id": "จีโน่",
+          "label": "จีโน่",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ซัน",
+          "label": "ซัน",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ตานา",
+          "label": "ตานา",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "วิว",
+          "label": "วิว",
+          "type": "folder",
+          "children": [
+            {
+              "id": "11",
+              "label": "11",
+              "type": "image",
+              "value": "/src/assets/clothes/head/วิว/11.png"
+            },
+            {
+              "id": "4_bg",
+              "label": "4 Bg",
+              "type": "image",
+              "value": "/src/assets/clothes/head/วิว/4_bg.png"
+            },
+            {
+              "id": "4_stroke",
+              "label": "4 Stroke",
+              "type": "image",
+              "value": "/src/assets/clothes/head/วิว/4_stroke.png"
+            }
+          ]
+        },
+        {
+          "id": "เค",
+          "label": "เค",
+          "type": "folder",
+          "children": [
+            {
+              "id": "tung tung ",
+              "label": "Tung tung ",
+              "type": "image",
+              "value": "/src/assets/clothes/head/เค/tung tung .PNG"
+            },
+            {
+              "id": "หมวกฮิตเน",
+              "label": "หมวกฮิตเน",
+              "type": "image",
+              "value": "/src/assets/clothes/head/เค/หมวกฮิตเน.png"
+            },
+            {
+              "id": "หัวเน Dark Holme",
+              "label": "หัวเน Dark Holme",
+              "type": "image",
+              "value": "/src/assets/clothes/head/เค/หัวเน Dark Holme.PNG"
+            },
+            {
+              "id": "หัวเนKKK",
+              "label": "หัวเนKKK",
+              "type": "image",
+              "value": "/src/assets/clothes/head/เค/หัวเนKKK.PNG"
+            }
+          ]
+        },
+        {
+          "id": "เซ็น",
+          "label": "เซ็น",
+          "type": "folder",
+          "children": [
+            {
+              "id": "เนย์จ๊อบเขา",
+              "label": "เนย์จ๊อบเขา",
+              "type": "image",
+              "value": "/src/assets/clothes/head/เซ็น/เนย์จ๊อบเขา.png"
+            },
+            {
+              "id": "เนย์ระเบียบวาทะศิลป์กางเกงหมวก",
+              "label": "เนย์ระเบียบวาทะศิลป์กางเกงหมวก",
+              "type": "image",
+              "value": "/src/assets/clothes/head/เซ็น/เนย์ระเบียบวาทะศิลป์กางเกงหมวก.png"
+            }
+          ]
+        },
+        {
+          "id": "แก้ม",
+          "label": "แก้ม",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Jokobo hat",
+              "label": "Jokobo hat",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แก้ม/Jokobo hat.png"
+            },
+            {
+              "id": "Rabadon deathcap",
+              "label": "Rabadon deathcap",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แก้ม/Rabadon deathcap.png"
+            }
+          ]
+        },
+        {
+          "id": "แอ้ม",
+          "label": "แอ้ม",
+          "type": "folder",
+          "children": [
+            {
+              "id": "ฉุนวะ",
+              "label": "ฉุนวะ",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แอ้ม/ฉุนวะ.png"
+            },
+            {
+              "id": "มะเขือเทศ",
+              "label": "มะเขือเทศ",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แอ้ม/มะเขือเทศ.png"
+            },
+            {
+              "id": "หมวกปัญาอ่อน",
+              "label": "หมวกปัญาอ่อน",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แอ้ม/หมวกปัญาอ่อน.png"
+            },
+            {
+              "id": "หูกระต่ายหวานเจี๊ยว",
+              "label": "หูกระต่ายหวานเจี๊ยว",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แอ้ม/หูกระต่ายหวานเจี๊ยว.png"
+            },
+            {
+              "id": "เหม็น มะเขือเทศ",
+              "label": "เหม็น มะเขือเทศ",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แอ้ม/เหม็น มะเขือเทศ.png"
+            },
+            {
+              "id": "แว่นเฟี้ยว",
+              "label": "แว่นเฟี้ยว",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แอ้ม/แว่นเฟี้ยว.png"
+            },
+            {
+              "id": "แว่นเอเลี่ยน",
+              "label": "แว่นเอเลี่ยน",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แอ้ม/แว่นเอเลี่ยน.png"
+            },
+            {
+              "id": "โม้ง",
+              "label": "โม้ง",
+              "type": "image",
+              "value": "/src/assets/clothes/head/แอ้ม/โม้ง.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pant",
+      "label": "Pant",
+      "type": "folder",
+      "children": [
+        {
+          "id": "จีโน่",
+          "label": "จีโน่",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ซัน",
+          "label": "ซัน",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Manba pants ",
+              "label": "Manba pants ",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/ซัน/Manba pants .PNG"
+            },
+            {
+              "id": "Uniform skirt w_tiddy",
+              "label": "Uniform skirt w Tiddy",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/ซัน/Uniform skirt w_tiddy.PNG"
+            }
+          ]
+        },
+        {
+          "id": "ตานา",
+          "label": "ตานา",
+          "type": "folder",
+          "children": [
+            {
+              "id": "กางเกง",
+              "label": "กางเกง",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/ตานา/กางเกง.png"
+            }
+          ]
+        },
+        {
+          "id": "วิว",
+          "label": "วิว",
+          "type": "folder",
+          "children": [
+            {
+              "id": "10",
+              "label": "10",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/วิว/10.png"
+            },
+            {
+              "id": "14",
+              "label": "14",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/วิว/14.png"
+            },
+            {
+              "id": "15",
+              "label": "15",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/วิว/15.png"
+            },
+            {
+              "id": "6",
+              "label": "6",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/วิว/6.png"
+            },
+            {
+              "id": "9",
+              "label": "9",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/วิว/9.png"
+            }
+          ]
+        },
+        {
+          "id": "เค",
+          "label": "เค",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "เซ็น",
+          "label": "เซ็น",
+          "type": "folder",
+          "children": [
+            {
+              "id": "เนย์จ๊อบกางเกง",
+              "label": "เนย์จ๊อบกางเกง",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/เซ็น/เนย์จ๊อบกางเกง.png"
+            },
+            {
+              "id": "เนย์ระเบียบวาทะศิลป์กางเกง",
+              "label": "เนย์ระเบียบวาทะศิลป์กางเกง",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/เซ็น/เนย์ระเบียบวาทะศิลป์กางเกง.png"
+            },
+            {
+              "id": "เนย์อีสาน",
+              "label": "เนย์อีสาน",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/เซ็น/เนย์อีสาน.png"
+            }
+          ]
+        },
+        {
+          "id": "แก้ม",
+          "label": "แก้ม",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "แอ้ม",
+          "label": "แอ้ม",
+          "type": "folder",
+          "children": [
+            {
+              "id": "ผุ้ตรวจ",
+              "label": "ผุ้ตรวจ",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/แอ้ม/ผุ้ตรวจ.png"
+            },
+            {
+              "id": "แดงแรงฤทธิ์",
+              "label": "แดงแรงฤทธิ์",
+              "type": "image",
+              "value": "/src/assets/clothes/pant/แอ้ม/แดงแรงฤทธิ์.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shirt",
+      "label": "Shirt",
+      "type": "folder",
+      "children": [
+        {
+          "id": "จีโน",
+          "label": "จีโน",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ซัน",
+          "label": "ซัน",
+          "type": "folder",
+          "children": [
+            {
+              "id": "Ben 10 nissannn",
+              "label": "Ben 10 nissannn",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/ซัน/Ben 10 nissannn.PNG"
+            },
+            {
+              "id": "Christmas tree",
+              "label": "Christmas tree",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/ซัน/Christmas tree.PNG"
+            },
+            {
+              "id": "Fluffy",
+              "label": "Fluffy",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/ซัน/Fluffy.PNG"
+            },
+            {
+              "id": "Goth girl ",
+              "label": "Goth girl ",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/ซัน/Goth girl .PNG"
+            },
+            {
+              "id": "Manba fashion ",
+              "label": "Manba fashion ",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/ซัน/Manba fashion .PNG"
+            },
+            {
+              "id": "Uniform ",
+              "label": "Uniform ",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/ซัน/Uniform .PNG"
+            }
+          ]
+        },
+        {
+          "id": "ตานา",
+          "label": "ตานา",
+          "type": "folder",
+          "children": [
+            {
+              "id": "เสื้อ",
+              "label": "เสื้อ",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/ตานา/เสื้อ.png"
+            }
+          ]
+        },
+        {
+          "id": "วิว",
+          "label": "วิว",
+          "type": "folder",
+          "children": [
+            {
+              "id": "17_bg",
+              "label": "17 Bg",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/วิว/17_bg.png"
+            },
+            {
+              "id": "17_stroke",
+              "label": "17 Stroke",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/วิว/17_stroke.png"
+            },
+            {
+              "id": "2",
+              "label": "2",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/วิว/2.png"
+            },
+            {
+              "id": "7",
+              "label": "7",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/วิว/7.png"
+            }
+          ]
+        },
+        {
+          "id": "เค",
+          "label": "เค",
+          "type": "folder",
+          "children": [
+            {
+              "id": "ชุดหนังเน Dark Holme",
+              "label": "ชุดหนังเน Dark Holme",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/เค/ชุดหนังเน Dark Holme.PNG"
+            },
+            {
+              "id": "ผ้าคลุมเน KKK",
+              "label": "ผ้าคลุมเน KKK",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/เค/ผ้าคลุมเน KKK.PNG"
+            },
+            {
+              "id": "เกราะ Tung Tung",
+              "label": "เกราะ Tung Tung",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/เค/เกราะ Tung Tung.PNG"
+            },
+            {
+              "id": "เครื่องเเบบฮิตเน",
+              "label": "เครื่องเเบบฮิตเน",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/เค/เครื่องเเบบฮิตเน.PNG"
+            }
+          ]
+        },
+        {
+          "id": "เซ็น",
+          "label": "เซ็น",
+          "type": "folder",
+          "children": [
+            {
+              "id": "เนย์จ๊อบชุด",
+              "label": "เนย์จ๊อบชุด",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/เซ็น/เนย์จ๊อบชุด.png"
+            },
+            {
+              "id": "เนย์ระเบียบวาทะศิลป์ชุด",
+              "label": "เนย์ระเบียบวาทะศิลป์ชุด",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/เซ็น/เนย์ระเบียบวาทะศิลป์ชุด.png"
+            }
+          ]
+        },
+        {
+          "id": "แก้ม",
+          "label": "แก้ม",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "แอ้ม",
+          "label": "แอ้ม",
+          "type": "folder",
+          "children": [
+            {
+              "id": "im so fucking poor _) ",
+              "label": "Im so fucking poor  ) ",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/แอ้ม/im so fucking poor _) .png"
+            },
+            {
+              "id": "กลางกาก",
+              "label": "กลางกาก",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/แอ้ม/กลางกาก.png"
+            },
+            {
+              "id": "ชุดกระต่ายหวานเจี๊ยบ",
+              "label": "ชุดกระต่ายหวานเจี๊ยบ",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/แอ้ม/ชุดกระต่ายหวานเจี๊ยบ.png"
+            },
+            {
+              "id": "ซับกาก",
+              "label": "ซับกาก",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/แอ้ม/ซับกาก.png"
+            },
+            {
+              "id": "บนกาก",
+              "label": "บนกาก",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/แอ้ม/บนกาก.png"
+            },
+            {
+              "id": "ป่ากาก",
+              "label": "ป่ากาก",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/แอ้ม/ป่ากาก.png"
+            },
+            {
+              "id": "ผู้ตรวจ",
+              "label": "ผู้ตรวจ",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/แอ้ม/ผู้ตรวจ.png"
+            },
+            {
+              "id": "เอดีกาก",
+              "label": "เอดีกาก",
+              "type": "image",
+              "value": "/src/assets/clothes/shirt/แอ้ม/เอดีกาก.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shoes",
+      "label": "Shoes",
+      "type": "folder",
+      "children": [
+        {
+          "id": "จีโน่",
+          "label": "จีโน่",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ซัน",
+          "label": "ซัน",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "ตานา",
+          "label": "ตานา",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "วิว",
+          "label": "วิว",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "เค",
+          "label": "เค",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "เซ็น",
+          "label": "เซ็น",
+          "type": "folder",
+          "children": [
+            {
+              "id": "เนย์ระเบียบวาทะศิลป์เกิบ",
+              "label": "เนย์ระเบียบวาทะศิลป์เกิบ",
+              "type": "image",
+              "value": "/src/assets/clothes/shoes/เซ็น/เนย์ระเบียบวาทะศิลป์เกิบ.png"
+            }
+          ]
+        },
+        {
+          "id": "แก้ม",
+          "label": "แก้ม",
+          "type": "folder",
+          "children": []
+        },
+        {
+          "id": "แอ้ม",
+          "label": "แอ้ม",
+          "type": "folder",
+          "children": [
+            {
+              "id": "J jordan",
+              "label": "J jordan",
+              "type": "image",
+              "value": "/src/assets/clothes/shoes/แอ้ม/J jordan.png"
+            },
+            {
+              "id": "รองเท้ากระต่ายหวานเจี๊ยว",
+              "label": "รองเท้ากระต่ายหวานเจี๊ยว",
+              "type": "image",
+              "value": "/src/assets/clothes/shoes/แอ้ม/รองเท้ากระต่ายหวานเจี๊ยว.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "etc": [
+    {
+      "id": "จีโน่",
+      "label": "จีโน่",
+      "type": "folder",
+      "children": [
+        {
+          "id": "กางเกง",
+          "label": "กางเกง",
+          "type": "image",
+          "value": "/src/assets/etc/จีโน่/กางเกง.JPG"
+        },
+        {
+          "id": "รองเท้า",
+          "label": "รองเท้า",
+          "type": "image",
+          "value": "/src/assets/etc/จีโน่/รองเท้า.PNG"
+        },
+        {
+          "id": "หนวด",
+          "label": "หนวด",
+          "type": "image",
+          "value": "/src/assets/etc/จีโน่/หนวด.PNG"
+        },
+        {
+          "id": "หมวก",
+          "label": "หมวก",
+          "type": "image",
+          "value": "/src/assets/etc/จีโน่/หมวก.PNG"
+        },
+        {
+          "id": "เสื้อ",
+          "label": "เสื้อ",
+          "type": "image",
+          "value": "/src/assets/etc/จีโน่/เสื้อ.JPG"
+        },
+        {
+          "id": "เสื้อH",
+          "label": "เสื้อH",
+          "type": "image",
+          "value": "/src/assets/etc/จีโน่/เสื้อH.PNG"
+        },
+        {
+          "id": "เสื้อLux",
+          "label": "เสื้อLux",
+          "type": "image",
+          "value": "/src/assets/etc/จีโน่/เสื้อLux.PNG"
+        }
+      ]
+    },
+    {
+      "id": "ซัน",
+      "label": "ซัน",
+      "type": "folder",
+      "children": [
+        {
+          "id": "Blood",
+          "label": "Blood",
+          "type": "image",
+          "value": "/src/assets/etc/ซัน/Blood.PNG"
+        }
+      ]
+    },
+    {
+      "id": "ตานา",
+      "label": "ตานา",
+      "type": "folder",
+      "children": []
+    },
+    {
+      "id": "วิว",
+      "label": "วิว",
+      "type": "folder",
+      "children": [
+        {
+          "id": "13_bg",
+          "label": "13 Bg",
+          "type": "image",
+          "value": "/src/assets/etc/วิว/13_bg.png"
+        },
+        {
+          "id": "13_stroke",
+          "label": "13 Stroke",
+          "type": "image",
+          "value": "/src/assets/etc/วิว/13_stroke.png"
+        },
+        {
+          "id": "18",
+          "label": "18",
+          "type": "image",
+          "value": "/src/assets/etc/วิว/18.png"
+        },
+        {
+          "id": "5",
+          "label": "5",
+          "type": "image",
+          "value": "/src/assets/etc/วิว/5.png"
+        }
+      ]
+    },
+    {
+      "id": "เค",
+      "label": "เค",
+      "type": "folder",
+      "children": [
+        {
+          "id": "Tung Tung Tung Sahur",
+          "label": "Tung Tung Tung Sahur",
+          "type": "image",
+          "value": "/src/assets/etc/เค/Tung Tung Tung Sahur.PNG"
+        },
+        {
+          "id": "ธงเผด็จการ",
+          "label": "ธงเผด็จการ",
+          "type": "image",
+          "value": "/src/assets/etc/เค/ธงเผด็จการ.PNG"
+        }
+      ]
+    },
+    {
+      "id": "เซ็น",
+      "label": "เซ็น",
+      "type": "folder",
+      "children": []
+    },
+    {
+      "id": "แก้ม",
+      "label": "แก้ม",
+      "type": "folder",
+      "children": [
+        {
+          "id": "Dino",
+          "label": "Dino",
+          "type": "image",
+          "value": "/src/assets/etc/แก้ม/Dino.png"
+        }
+      ]
+    },
+    {
+      "id": "แอ้ม",
+      "label": "แอ้ม",
+      "type": "folder",
+      "children": []
+    }
+  ]
+}

@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "generate-assets": "node scripts/generate-assets.js",
+    "dev": "npm run generate-assets && vite",
+    "build": "npm run generate-assets && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
     "vue": "^3.5.24"
   },
   "devDependencies": {
