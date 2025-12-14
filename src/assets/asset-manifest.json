@@ -1,0 +1,15 @@
+{
+  "body.svg": {
+    "type": "file",
+    "path": "/body.svg",
+    "name": "body.svg"
+  },
+  "clothes": {},
+  "etc": {},
+  "faces": {},
+  "vite.svg": {
+    "type": "file",
+    "path": "/vite.svg",
+    "name": "vite.svg"
+  }
+}
