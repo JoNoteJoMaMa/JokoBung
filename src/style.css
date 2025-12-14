@@ -47,3 +47,7 @@ body {
   width: 0px;
   background: transparent;
 }
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}

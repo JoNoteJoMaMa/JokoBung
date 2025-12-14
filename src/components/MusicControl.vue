@@ -177,7 +177,11 @@ const togglePopup = () => {
 
         <!-- Line 2: Splat Volume -->
         <div class="control-row">
-          <button class="icon-btn" @click="toggleSplatMute" title="Mute Splat">
+          <button
+            class="icon-btn btn-red"
+            @click="toggleSplatMute"
+            title="Mute Splat"
+          >
             <!-- Tomato Iconish -->
             <svg
               width="24"
@@ -222,7 +226,11 @@ const togglePopup = () => {
 
         <!-- Line 3: Flash Volume -->
         <div class="control-row">
-          <button class="icon-btn" @click="toggleFlashMute" title="Mute Flash">
+          <button
+            class="icon-btn btn-yellow"
+            @click="toggleFlashMute"
+            title="Mute Flash"
+          >
             <!-- Flash Icon -->
             <svg
               width="24"
@@ -357,5 +365,20 @@ const togglePopup = () => {
   cursor: pointer;
 }
 
-/* Removed toggle-btn styles */
+/* Button Colors */
+.btn-red {
+  color: #ff6b6b;
+}
+.btn-red:hover {
+  color: #ff5252;
+  background-color: #ffe5e5; /* Subtle background tint on hover */
+}
+
+.btn-yellow {
+  color: #feca57;
+}
+.btn-yellow:hover {
+  color: #ff9f43;
+  background-color: #fff8e1; /* Subtle background tint on hover */
+}
 </style>

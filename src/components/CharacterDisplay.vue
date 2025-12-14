@@ -168,20 +168,13 @@ const showInnerEye = computed(() => {
 <template>
   <div class="character-display">
     <template v-for="(layer, index) in layers" :key="layer.id || index">
-      <!-- Character Composite Layer -->
+      <!-- Composite Character Layer (Body, Ears, Face, Eyes) -->
       <div
         v-if="layer.type === 'character'"
         class="layer-group character-composite"
+        :style="{ zIndex: index }"
       >
-        <!-- Hair Back Layer -->
-        <img
-          v-if="hairBackUrl"
-          :src="hairBackUrl"
-          class="layer hair-back"
-          alt="Hair Back"
-        />
-
-        <!-- Body Layer -->
+        <!-- Body -->
         <div class="layer body-skin" :style="bodySkinStyle"></div>
         <img
           src="/templates/bodies/Body_lineart.PNG"
@@ -189,7 +182,7 @@ const showInnerEye = computed(() => {
           alt="Body Lineart"
         />
 
-        <!-- Ears Layers -->
+        <!-- Ears -->
         <div class="layer ears-skin" :style="earsSkinStyle"></div>
         <img
           v-if="earsUrl"
@@ -198,14 +191,14 @@ const showInnerEye = computed(() => {
           alt="Ears Lineart"
         />
 
-        <!-- Face Layer -->
+        <!-- Eyes (Inner) -->
         <div
           v-if="showInnerEye"
           class="layer eye-inner"
           :style="eyeInnerStyle"
         ></div>
 
-        <!-- Generic Face Features (can be object or string) -->
+        <!-- Face Features -->
         <template
           v-if="
             face.face &&
@@ -213,7 +206,6 @@ const showInnerEye = computed(() => {
             (face.face.bg || face.face.stroke)
           "
         >
-          <!-- Special Case: Template Face BG (No tint, normal image) -->
           <img
             v-if="
               face.face.bg &&
@@ -223,7 +215,6 @@ const showInnerEye = computed(() => {
             class="layer face-features-bg"
             alt="Face Features BG"
           />
-          <!-- Standard Case: Tintable BG (Mask) -->
           <div
             v-else-if="face.face.bg"
             class="layer face-features-bg"
@@ -253,232 +244,271 @@ const showInnerEye = computed(() => {
           class="layer face-features"
           alt="Face Features"
         />
+      </div>
 
-        <!-- Hair Front moved to end -->
-
-        <!-- Clothes Layers -->
-        <!-- Shoes -->
-        <template
-          v-if="
-            clothes.shoes &&
-            typeof clothes.shoes === 'object' &&
-            (clothes.shoes.bg || clothes.shoes.stroke)
-          "
-        >
-          <div
-            v-if="clothes.shoes.bg"
-            class="layer shoes-bg"
-            :style="{
-              backgroundColor: clothes.shoes.color || '#ffffff',
-              maskImage: `url(${clothes.shoes.bg})`,
-              webkitMaskImage: `url(${clothes.shoes.bg})`,
-              maskSize: 'contain',
-              webkitMaskSize: 'contain',
-              maskRepeat: 'no-repeat',
-              webkitMaskRepeat: 'no-repeat',
-              maskPosition: 'center',
-              webkitMaskPosition: 'center',
-            }"
-          ></div>
-          <img
-            v-if="clothes.shoes.stroke"
-            :src="clothes.shoes.stroke"
-            class="layer shoes"
-            alt="Shoes Stroke"
-          />
-        </template>
+      <!-- Standard Parts -->
+      <template v-if="layer.type === 'part'">
+        <!-- Hair Back -->
         <img
-          v-else-if="clothes.shoes"
-          :src="clothes.shoes"
-          class="layer shoes"
-          alt="Shoes"
+          v-if="layer.part === 'hair_back' && hairBackUrl"
+          :src="hairBackUrl"
+          class="layer hair-back"
+          alt="Hair Back"
+          :style="{ zIndex: index }"
         />
 
         <!-- Pant -->
-        <template
-          v-if="
-            clothes.pant &&
-            typeof clothes.pant === 'object' &&
-            (clothes.pant.bg || clothes.pant.stroke)
-          "
-        >
-          <div
-            v-if="clothes.pant.bg"
-            class="layer pant-bg"
-            :style="{
-              backgroundColor: clothes.pant.color || '#ffffff',
-              maskImage: `url(${clothes.pant.bg})`,
-              webkitMaskImage: `url(${clothes.pant.bg})`,
-              maskSize: 'contain',
-              webkitMaskSize: 'contain',
-              maskRepeat: 'no-repeat',
-              webkitMaskRepeat: 'no-repeat',
-              maskPosition: 'center',
-              webkitMaskPosition: 'center',
-            }"
-          ></div>
+        <template v-if="layer.part === 'pant'">
+          <template
+            v-if="
+              clothes.pant &&
+              typeof clothes.pant === 'object' &&
+              (clothes.pant.bg || clothes.pant.stroke)
+            "
+          >
+            <div
+              v-if="clothes.pant.bg"
+              class="layer pant-bg"
+              :style="{
+                backgroundColor: clothes.pant.color || '#ffffff',
+                maskImage: `url(${clothes.pant.bg})`,
+                webkitMaskImage: `url(${clothes.pant.bg})`,
+                maskSize: 'contain',
+                webkitMaskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                webkitMaskRepeat: 'no-repeat',
+                maskPosition: 'center',
+                webkitMaskPosition: 'center',
+                zIndex: index,
+              }"
+            ></div>
+            <img
+              v-if="clothes.pant.stroke"
+              :src="clothes.pant.stroke"
+              class="layer pant"
+              alt="Pant Stroke"
+              :style="{ zIndex: index }"
+            />
+          </template>
           <img
-            v-if="clothes.pant.stroke"
-            :src="clothes.pant.stroke"
+            v-else-if="clothes.pant"
+            :src="clothes.pant"
             class="layer pant"
-            alt="Pant Stroke"
+            alt="Pant"
+            :style="{ zIndex: index }"
           />
         </template>
-        <img
-          v-else-if="clothes.pant"
-          :src="clothes.pant"
-          class="layer pant"
-          alt="Pant"
-        />
+
+        <!-- Shoes -->
+        <template v-if="layer.part === 'shoes'">
+          <template
+            v-if="
+              clothes.shoes &&
+              typeof clothes.shoes === 'object' &&
+              (clothes.shoes.bg || clothes.shoes.stroke)
+            "
+          >
+            <div
+              v-if="clothes.shoes.bg"
+              class="layer shoes-bg"
+              :style="{
+                backgroundColor: clothes.shoes.color || '#ffffff',
+                maskImage: `url(${clothes.shoes.bg})`,
+                webkitMaskImage: `url(${clothes.shoes.bg})`,
+                maskSize: 'contain',
+                webkitMaskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                webkitMaskRepeat: 'no-repeat',
+                maskPosition: 'center',
+                webkitMaskPosition: 'center',
+                zIndex: index,
+              }"
+            ></div>
+            <img
+              v-if="clothes.shoes.stroke"
+              :src="clothes.shoes.stroke"
+              class="layer shoes"
+              alt="Shoes Stroke"
+              :style="{ zIndex: index }"
+            />
+          </template>
+          <img
+            v-else-if="clothes.shoes"
+            :src="clothes.shoes"
+            class="layer shoes"
+            alt="Shoes"
+            :style="{ zIndex: index }"
+          />
+        </template>
 
         <!-- Shirt -->
-        <template
-          v-if="
-            clothes.shirt &&
-            typeof clothes.shirt === 'object' &&
-            (clothes.shirt.bg || clothes.shirt.stroke)
-          "
-        >
-          <div
-            v-if="clothes.shirt.bg"
-            class="layer shirt-bg"
-            :style="{
-              backgroundColor: clothes.shirt.color || '#ffffff',
-              maskImage: `url(${clothes.shirt.bg})`,
-              webkitMaskImage: `url(${clothes.shirt.bg})`,
-              maskSize: 'contain',
-              webkitMaskSize: 'contain',
-              maskRepeat: 'no-repeat',
-              webkitMaskRepeat: 'no-repeat',
-              maskPosition: 'center',
-              webkitMaskPosition: 'center',
-            }"
-          ></div>
+        <template v-if="layer.part === 'shirt'">
+          <template
+            v-if="
+              clothes.shirt &&
+              typeof clothes.shirt === 'object' &&
+              (clothes.shirt.bg || clothes.shirt.stroke)
+            "
+          >
+            <div
+              v-if="clothes.shirt.bg"
+              class="layer shirt-bg"
+              :style="{
+                backgroundColor: clothes.shirt.color || '#ffffff',
+                maskImage: `url(${clothes.shirt.bg})`,
+                webkitMaskImage: `url(${clothes.shirt.bg})`,
+                maskSize: 'contain',
+                webkitMaskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                webkitMaskRepeat: 'no-repeat',
+                maskPosition: 'center',
+                webkitMaskPosition: 'center',
+                zIndex: index,
+              }"
+            ></div>
+            <img
+              v-if="clothes.shirt.stroke"
+              :src="clothes.shirt.stroke"
+              class="layer shirt"
+              alt="Shirt Stroke"
+              :style="{ zIndex: index }"
+            />
+          </template>
           <img
-            v-if="clothes.shirt.stroke"
-            :src="clothes.shirt.stroke"
+            v-else-if="clothes.shirt"
+            :src="clothes.shirt"
             class="layer shirt"
-            alt="Shirt Stroke"
+            alt="Shirt"
+            :style="{ zIndex: index }"
           />
         </template>
-        <img
-          v-else-if="clothes.shirt"
-          :src="clothes.shirt"
-          class="layer shirt"
-          alt="Shirt"
-        />
 
         <!-- Head -->
-        <template
-          v-if="
-            clothes.head &&
-            typeof clothes.head === 'object' &&
-            (clothes.head.bg || clothes.head.stroke)
-          "
-        >
-          <div
-            v-if="clothes.head.bg"
-            class="layer head-bg"
-            :style="{
-              backgroundColor: clothes.head.color || '#ffffff',
-              maskImage: `url(${clothes.head.bg})`,
-              webkitMaskImage: `url(${clothes.head.bg})`,
-              maskSize: 'contain',
-              webkitMaskSize: 'contain',
-              maskRepeat: 'no-repeat',
-              webkitMaskRepeat: 'no-repeat',
-              maskPosition: 'center',
-              webkitMaskPosition: 'center',
-            }"
-          ></div>
+        <template v-if="layer.part === 'head'">
+          <template
+            v-if="
+              clothes.head &&
+              typeof clothes.head === 'object' &&
+              (clothes.head.bg || clothes.head.stroke)
+            "
+          >
+            <div
+              v-if="clothes.head.bg"
+              class="layer head-bg"
+              :style="{
+                backgroundColor: clothes.head.color || '#ffffff',
+                maskImage: `url(${clothes.head.bg})`,
+                webkitMaskImage: `url(${clothes.head.bg})`,
+                maskSize: 'contain',
+                webkitMaskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                webkitMaskRepeat: 'no-repeat',
+                maskPosition: 'center',
+                webkitMaskPosition: 'center',
+                zIndex: index,
+              }"
+            ></div>
+            <img
+              v-if="clothes.head.stroke"
+              :src="clothes.head.stroke"
+              class="layer head"
+              alt="Head Stroke"
+              :style="{ zIndex: index }"
+            />
+          </template>
           <img
-            v-if="clothes.head.stroke"
-            :src="clothes.head.stroke"
+            v-else-if="clothes.head"
+            :src="clothes.head"
             class="layer head"
-            alt="Head Stroke"
+            alt="Head"
+            :style="{ zIndex: index }"
           />
         </template>
-        <img
-          v-else-if="clothes.head"
-          :src="clothes.head"
-          class="layer head"
-          alt="Head"
-        />
 
-        <!-- Hair Front (Top of Clothes, but behind Hands) -->
-        <template
-          v-if="
-            face.hair &&
-            typeof face.hair === 'object' &&
-            (face.hair.bg || face.hair.stroke)
-          "
-        >
-          <div
-            v-if="face.hair.bg"
-            class="layer hair-front-bg"
-            :style="{
-              backgroundColor: face.hair.color || '#ffffff',
-              maskImage: `url('${face.hair.bg}')`,
-              webkitMaskImage: `url('${face.hair.bg}')`,
-              maskSize: 'contain',
-              webkitMaskSize: 'contain',
-              maskRepeat: 'no-repeat',
-              webkitMaskRepeat: 'no-repeat',
-              maskPosition: 'center',
-              webkitMaskPosition: 'center',
-            }"
-          ></div>
+        <!-- Hair Front -->
+        <template v-if="layer.part === 'hair_front'">
+          <template
+            v-if="
+              face.hair &&
+              typeof face.hair === 'object' &&
+              (face.hair.bg || face.hair.stroke)
+            "
+          >
+            <div
+              v-if="face.hair.bg"
+              class="layer hair-front-bg"
+              :style="{
+                backgroundColor: face.hair.color || '#ffffff',
+                maskImage: `url('${face.hair.bg}')`,
+                webkitMaskImage: `url('${face.hair.bg}')`,
+                maskSize: 'contain',
+                webkitMaskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                webkitMaskRepeat: 'no-repeat',
+                maskPosition: 'center',
+                webkitMaskPosition: 'center',
+                zIndex: index,
+              }"
+            ></div>
+            <img
+              v-if="face.hair.stroke"
+              :src="face.hair.stroke"
+              class="layer hair-front"
+              alt="Hair Front Stroke"
+              :style="{ zIndex: index }"
+            />
+          </template>
           <img
-            v-if="face.hair.stroke"
-            :src="face.hair.stroke"
+            v-else-if="hairFrontUrl"
+            :src="hairFrontUrl"
             class="layer hair-front"
-            alt="Hair Front Stroke"
+            alt="Hair Front"
+            :style="{ zIndex: index }"
           />
         </template>
-        <img
-          v-else-if="hairFrontUrl"
-          :src="hairFrontUrl"
-          class="layer hair-front"
-          alt="Hair Front"
-        />
 
-        <!-- Hands (Top Most) -->
-        <template
-          v-if="
-            clothes.hands &&
-            typeof clothes.hands === 'object' &&
-            (clothes.hands.bg || clothes.hands.stroke)
-          "
-        >
-          <div
-            v-if="clothes.hands.bg"
-            class="layer hands-bg"
-            :style="{
-              backgroundColor: clothes.hands.color || '#ffffff',
-              maskImage: `url('${clothes.hands.bg}')`,
-              webkitMaskImage: `url('${clothes.hands.bg}')`,
-              maskSize: 'contain',
-              webkitMaskSize: 'contain',
-              maskRepeat: 'no-repeat',
-              webkitMaskRepeat: 'no-repeat',
-              maskPosition: 'center',
-              webkitMaskPosition: 'center',
-            }"
-          ></div>
+        <!-- Hands -->
+        <template v-if="layer.part === 'hands'">
+          <template
+            v-if="
+              clothes.hands &&
+              typeof clothes.hands === 'object' &&
+              (clothes.hands.bg || clothes.hands.stroke)
+            "
+          >
+            <div
+              v-if="clothes.hands.bg"
+              class="layer hands-bg"
+              :style="{
+                backgroundColor: clothes.hands.color || '#ffffff',
+                maskImage: `url('${clothes.hands.bg}')`,
+                webkitMaskImage: `url('${clothes.hands.bg}')`,
+                maskSize: 'contain',
+                webkitMaskSize: 'contain',
+                maskRepeat: 'no-repeat',
+                webkitMaskRepeat: 'no-repeat',
+                maskPosition: 'center',
+                webkitMaskPosition: 'center',
+                zIndex: index,
+              }"
+            ></div>
+            <img
+              v-if="clothes.hands.stroke"
+              :src="clothes.hands.stroke"
+              class="layer hands"
+              alt="Hands Stroke"
+              :style="{ zIndex: index }"
+            />
+          </template>
           <img
-            v-if="clothes.hands.stroke"
-            :src="clothes.hands.stroke"
+            v-else-if="clothes.hands"
+            :src="clothes.hands"
             class="layer hands"
-            alt="Hands Stroke"
+            alt="Hands"
+            :style="{ zIndex: index }"
           />
         </template>
-        <img
-          v-else-if="clothes.hands"
-          :src="clothes.hands"
-          class="layer hands"
-          alt="Hands"
-        />
-      </div>
+      </template>
 
       <!-- Image Layer (Etc) -->
       <template v-else-if="layer.type === 'image'">

@@ -40,8 +40,7 @@ const moveDown = (originalIndex) => {
 
 const removeLayer = (index) => {
   const layer = props.layers[index];
-  if (layer.type !== 'character') {
-    // Protect Character layer
+  if (!layer.locked) {
     emit('remove', index);
   }
 };
@@ -54,7 +53,7 @@ const removeLayer = (index) => {
         v-for="item in displayLayers"
         :key="item.layer.id || item.index"
         class="layer-item"
-        :class="{ 'is-character': item.layer.type === 'character' }"
+        :class="{ 'is-locked': item.layer.locked }"
       >
         <!-- Thumbnail (Character Only) -->
         <div v-if="item.layer.type === 'character'" class="layer-thumb">
@@ -86,8 +85,8 @@ const removeLayer = (index) => {
           <button
             @click="removeLayer(item.index)"
             class="ctrl-btn delete-btn"
-            :disabled="item.layer.type === 'character'"
-            v-if="item.layer.type !== 'character'"
+            :disabled="item.layer.locked"
+            v-if="!item.layer.locked"
           >
             ×
           </button>
@@ -103,6 +102,7 @@ const removeLayer = (index) => {
   flex-direction: column;
   height: 100%;
   width: 100%;
+  min-height: 0; /* Fix flex scrolling issue */
   padding: 0 1rem 1rem 1rem;
   box-sizing: border-box;
 }
@@ -126,7 +126,7 @@ const removeLayer = (index) => {
   gap: 0.8rem;
 }
 
-.layer-item.is-character {
+.layer-item.is-locked {
   background: #f0f8ff;
   border-color: #b0c4de;
 }

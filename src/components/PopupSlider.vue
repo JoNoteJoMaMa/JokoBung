@@ -79,7 +79,12 @@ const isSelected = (item) => {
         </div>
 
         <!-- Image Mode -->
-        <div v-if="item.type === 'image' || item.type === 'remove'">
+        <div
+          v-if="
+            (item.type === 'image' || item.type === 'remove') &&
+            item.style !== 'folder'
+          "
+        >
           <!-- Remove Button Special Case -->
           <div v-if="item.type === 'remove'" class="image-box default-box">
             <svg
@@ -129,8 +134,11 @@ const isSelected = (item) => {
           }}</span>
         </div>
 
-        <!-- Category Mode -->
-        <div v-if="item.type === 'category'" class="folder-box">
+        <!-- Category Mode (or forced Folder style) -->
+        <div
+          v-if="item.type === 'category' || item.style === 'folder'"
+          class="folder-box"
+        >
           <!-- Reuse folder style but maybe different icon -->
           <svg
             v-if="item.icon"

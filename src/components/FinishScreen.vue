@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, nextTick } from 'vue';
 import CharacterDisplay from './CharacterDisplay.vue';
 import html2canvas from 'html2canvas';
 
@@ -11,6 +11,22 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['back']);
+
+const characterName = ref('โจโกะบุ๋ง');
+const isEditingName = ref(false);
+const nameInputRef = ref(null);
+
+const toggleEditName = async () => {
+  isEditingName.value = !isEditingName.value;
+  if (isEditingName.value) {
+    await nextTick();
+    nameInputRef.value?.focus();
+  }
+};
+
+const saveName = () => {
+  isEditingName.value = false;
+};
 
 const characterRef = ref(null);
 const isDownloading = ref(false);
@@ -30,7 +46,10 @@ const handleDownload = async (format) => {
 
     const link = document.createElement('a');
     const ext = format === 'jpeg' ? 'jpg' : 'png';
-    link.download = `jokobung-${Date.now()}.${ext}`;
+    // Use characterName for filename, sanitized (allow Thai + English)
+    const validName = characterName.value.trim() || 'โจโกะบุ๋ง';
+    const safeName = validName.replace(/[^a-zA-Z0-9\u0E00-\u0E7F\-_]/g, '_');
+    link.download = `${safeName}.${ext}`;
     link.href = canvas.toDataURL(`image/${format}`, 0.9);
     link.click();
   } catch (error) {
@@ -45,6 +64,55 @@ const handleDownload = async (format) => {
 <template>
   <div class="finish-screen" @click="showDownloadOptions = false">
     <h1 class="title">เสร็จแล้วจ้า!</h1>
+
+    <!-- Character Name Edit -->
+    <div class="name-container">
+      <div v-if="!isEditingName" class="name-display" @click="toggleEditName">
+        <span class="char-name">{{ characterName }}</span>
+        <button class="edit-icon-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div v-else class="name-input-wrapper">
+        <input
+          ref="nameInputRef"
+          v-model="characterName"
+          class="name-input"
+          @blur="saveName"
+          @keyup.enter="saveName"
+          maxlength="20"
+        />
+        <button class="save-icon-btn" @click="saveName">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
 
     <div class="display-container" ref="characterRef">
       <CharacterDisplay
@@ -244,5 +312,75 @@ const handleDownload = async (format) => {
 
 .option-btn:active {
   background-color: #e0e0e0;
+}
+
+.name-container {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem; /* Fixed height to prevent layout shift */
+}
+
+.name-display {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.char-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #000;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.name-display:hover .char-name {
+  border-bottom-color: #000;
+}
+
+.edit-icon-btn,
+.save-icon-btn {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.edit-icon-btn:hover,
+.save-icon-btn:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.name-input-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name-input {
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: inherit;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+  text-align: center;
+  color: #000;
+  background: transparent;
+  width: 200px; /* Fixed width helps keep layout stable */
 }
 </style>

@@ -57,12 +57,6 @@
       "type": "folder",
       "children": [
         {
-          "id": "จีโน่",
-          "label": "จีโน่",
-          "type": "folder",
-          "children": []
-        },
-        {
           "id": "ซัน",
           "label": "ซัน",
           "type": "folder",
@@ -147,18 +141,6 @@
               "value": "/src/assets/faces/face/ตานา/หน้า4_template_face_bg.png"
             }
           ]
-        },
-        {
-          "id": "วิว",
-          "label": "วิว",
-          "type": "folder",
-          "children": []
-        },
-        {
-          "id": "เค",
-          "label": "เค",
-          "type": "folder",
-          "children": []
         },
         {
           "id": "เซ็น",
@@ -251,12 +233,6 @@
               "value": "/src/assets/faces/face/แก้ม/Chi be.png"
             }
           ]
-        },
-        {
-          "id": "แอ้ม",
-          "label": "แอ้ม",
-          "type": "folder",
-          "children": []
         }
       ]
     },
@@ -265,12 +241,6 @@
       "label": "Hair",
       "type": "folder",
       "children": [
-        {
-          "id": "จีโน่",
-          "label": "จีโน่",
-          "type": "folder",
-          "children": []
-        },
         {
           "id": "ซัน",
           "label": "ซัน",
@@ -425,12 +395,6 @@
           ]
         },
         {
-          "id": "เค",
-          "label": "เค",
-          "type": "folder",
-          "children": []
-        },
-        {
           "id": "เซ็น",
           "label": "เซ็น",
           "type": "folder",
@@ -462,12 +426,6 @@
           ]
         },
         {
-          "id": "แก้ม",
-          "label": "แก้ม",
-          "type": "folder",
-          "children": []
-        },
-        {
           "id": "แอ้ม",
           "label": "แอ้ม",
           "type": "folder",
@@ -489,12 +447,6 @@
       "label": "Hands",
       "type": "folder",
       "children": [
-        {
-          "id": "จีโน่",
-          "label": "จีโน่",
-          "type": "folder",
-          "children": []
-        },
         {
           "id": "ซัน",
           "label": "ซัน",
@@ -583,12 +535,6 @@
           ]
         },
         {
-          "id": "เค",
-          "label": "เค",
-          "type": "folder",
-          "children": []
-        },
-        {
           "id": "เซ็น",
           "label": "เซ็น",
           "type": "folder",
@@ -600,12 +546,6 @@
               "value": "/src/assets/clothes/hands/เซ็น/แคน.png"
             }
           ]
-        },
-        {
-          "id": "แก้ม",
-          "label": "แก้ม",
-          "type": "folder",
-          "children": []
         },
         {
           "id": "แอ้ม",
@@ -639,24 +579,6 @@
       "label": "Head",
       "type": "folder",
       "children": [
-        {
-          "id": "จีโน่",
-          "label": "จีโน่",
-          "type": "folder",
-          "children": []
-        },
-        {
-          "id": "ซัน",
-          "label": "ซัน",
-          "type": "folder",
-          "children": []
-        },
-        {
-          "id": "ตานา",
-          "label": "ตานา",
-          "type": "folder",
-          "children": []
-        },
         {
           "id": "วิว",
           "label": "วิว",
@@ -814,12 +736,6 @@
       "type": "folder",
       "children": [
         {
-          "id": "จีโน่",
-          "label": "จีโน่",
-          "type": "folder",
-          "children": []
-        },
-        {
           "id": "ซัน",
           "label": "ซัน",
           "type": "folder",
@@ -889,12 +805,6 @@
           ]
         },
         {
-          "id": "เค",
-          "label": "เค",
-          "type": "folder",
-          "children": []
-        },
-        {
           "id": "เซ็น",
           "label": "เซ็น",
           "type": "folder",
@@ -918,12 +828,6 @@
               "value": "/src/assets/clothes/pant/เซ็น/เนย์อีสาน.png"
             }
           ]
-        },
-        {
-          "id": "แก้ม",
-          "label": "แก้ม",
-          "type": "folder",
-          "children": []
         },
         {
           "id": "แอ้ม",
@@ -951,12 +855,6 @@
       "label": "Shirt",
       "type": "folder",
       "children": [
-        {
-          "id": "จีโน",
-          "label": "จีโน",
-          "type": "folder",
-          "children": []
-        },
         {
           "id": "ซัน",
           "label": "ซัน",
@@ -1095,12 +993,6 @@
           ]
         },
         {
-          "id": "แก้ม",
-          "label": "แก้ม",
-          "type": "folder",
-          "children": []
-        },
-        {
           "id": "แอ้ม",
           "label": "แอ้ม",
           "type": "folder",
@@ -1163,36 +1055,6 @@
       "type": "folder",
       "children": [
         {
-          "id": "จีโน่",
-          "label": "จีโน่",
-          "type": "folder",
-          "children": []
-        },
-        {
-          "id": "ซัน",
-          "label": "ซัน",
-          "type": "folder",
-          "children": []
-        },
-        {
-          "id": "ตานา",
-          "label": "ตานา",
-          "type": "folder",
-          "children": []
-        },
-        {
-          "id": "วิว",
-          "label": "วิว",
-          "type": "folder",
-          "children": []
-        },
-        {
-          "id": "เค",
-          "label": "เค",
-          "type": "folder",
-          "children": []
-        },
-        {
           "id": "เซ็น",
           "label": "เซ็น",
           "type": "folder",
@@ -1204,12 +1066,6 @@
               "value": "/src/assets/clothes/shoes/เซ็น/เนย์ระเบียบวาทะศิลป์เกิบ.png"
             }
           ]
-        },
-        {
-          "id": "แก้ม",
-          "label": "แก้ม",
-          "type": "folder",
-          "children": []
         },
         {
           "id": "แอ้ม",
@@ -1291,12 +1147,6 @@
       ]
     },
     {
-      "id": "ตานา",
-      "label": "ตานา",
-      "type": "folder",
-      "children": []
-    },
-    {
       "id": "วิว",
       "label": "วิว",
       "type": "folder",
@@ -1347,12 +1197,6 @@
       ]
     },
     {
-      "id": "เซ็น",
-      "label": "เซ็น",
-      "type": "folder",
-      "children": []
-    },
-    {
       "id": "แก้ม",
       "label": "แก้ม",
       "type": "folder",
@@ -1364,12 +1208,6 @@
           "value": "/src/assets/etc/แก้ม/Dino.png"
         }
       ]
-    },
-    {
-      "id": "แอ้ม",
-      "label": "แอ้ม",
-      "type": "folder",
-      "children": []
     }
   ]
 }

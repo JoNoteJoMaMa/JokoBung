@@ -130,13 +130,16 @@ const getInitialCharacterState = () => ({
     face: '/templates/faces/Eye.PNG', // Default face (Eyes)
   },
   clothes: {
+    // Legacy fixed slots (unused for rendering now, but kept for safe structure)
     head: null,
     shirt: null,
     pant: null,
     shoes: null,
     hands: null,
   },
-  layers: [{ id: 'char', type: 'character', label: 'Character' }],
+  layers: [
+    { id: 'base_char', type: 'character', label: 'ตัวละคร', locked: true },
+  ],
   etc: {},
 });
 
@@ -370,11 +373,11 @@ const faceData = [
         label: 'หูปกติ',
         type: 'image',
         value: '/templates/ears/Ears_lineart.PNG', // Restore default template
-        // Using a simple icon for consistency or null to show text?
-        // Let's use a generic ear-like icon or just text.
-        // Assuming no specific icon requested, standard image flow will show preview if I set it as image?
-        // But value is path. PopupSlider renders image box with src=value.
-        // Since it's a template, it will show the template ear image.
+        style: 'folder', // Render as folder button
+        icon: {
+          viewBox: '0 0 24 24',
+          path: 'M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0',
+        },
       },
       ...processDualLayerAssets(
         generatedAssets.faces.find((f) => f.id === 'ears')?.children || []
@@ -543,6 +546,38 @@ const handleUpdateFlash = (vol) => {
   flashVolume.value = vol;
 };
 
+const syncCharacterLayers = () => {
+  const parts = [];
+
+  parts.forEach((p) => {
+    const existsIndex = character.layers.findIndex(
+      (l) => l.type === 'part' && l.part === p.part
+    );
+
+    if (p.hasValue) {
+      // Should exist
+      if (existsIndex === -1) {
+        const newLayer = {
+          id: p.part,
+          type: 'part',
+          part: p.part,
+          label: p.label,
+        };
+        if (p.insertAt === 'start') {
+          character.layers.unshift(newLayer);
+        } else {
+          character.layers.push(newLayer);
+        }
+      }
+    } else {
+      // Should NOT exist
+      if (existsIndex !== -1) {
+        character.layers.splice(existsIndex, 1);
+      }
+    }
+  });
+};
+
 const handleSliderSelect = (item) => {
   if (currentMode.value === 'color') {
     if (currentCategory.value === 'skin') {
@@ -642,28 +677,56 @@ const handleSliderSelect = (item) => {
         } else if (currentCategory.value === 'ears') {
           if (item.id === 'none_ears') {
             character.face[currentCategory.value] = null;
-            playSplatSound();
           } else {
             character.face[currentCategory.value] =
               '/templates/ears/Ears_lineart.PNG';
-            playSplatSound();
           }
+        } else if (currentCategory.value === 'hair') {
+          // Reset Hair: Remove only items visible in the current folder
+          const visibleHairValues = currentItems.value.reduce((acc, i) => {
+            if (i.front) acc.push(i.front);
+            if (i.back) acc.push(i.back);
+            if (i.value) acc.push(i.value);
+            return acc;
+          }, []);
+
+          character.layers = character.layers.filter(
+            (l) => l.category !== 'hair' || !visibleHairValues.includes(l.value)
+          );
         } else {
           character.face[currentCategory.value] = null;
         }
       }
       playSplatSound();
+      syncCharacterLayers(); // Sync after remove
     } else if (activePopup.value === 'clothes') {
       if (currentCategory.value) {
-        character.clothes[currentCategory.value] = null;
+        // Reset Clothes: Remove only items visible in the current folder
+        const visibleClothesValues = currentItems.value
+          .filter((i) => i.value)
+          .map((i) => i.value);
+
+        character.layers = character.layers.filter(
+          (l) =>
+            l.category !== currentCategory.value ||
+            !visibleClothesValues.includes(l.value)
+        );
       }
       playSplatSound();
+      syncCharacterLayers(); // Sync after remove
     } else if (activePopup.value === 'etc') {
       if (currentCategory.value) {
-        // Remove ALL items of this category from layers
+        // Reset Etc: Remove only items visible in the current folder (consistent behavior)
+        const visibleEtcValues = currentItems.value
+          .filter((i) => i.value)
+          .map((i) => i.value);
+
         character.layers = character.layers.filter(
-          (l) => l.category !== currentCategory.value
+          (l) =>
+            l.category !== currentCategory.value ||
+            !visibleEtcValues.includes(l.value)
         );
+
         // Reset active layer if removed
         if (activeLayerId.value) {
           const exists = character.layers.find(
@@ -673,11 +736,80 @@ const handleSliderSelect = (item) => {
         }
       }
       playSplatSound();
+      syncCharacterLayers(); // Sync after remove
     }
   } else if (item.type === 'image') {
     // Apply image
     if (activePopup.value === 'face') {
-      if (currentCategory.value) {
+      if (currentCategory.value === 'hair') {
+        // Limitless Hair Logic with Toggle
+        // Check if this hair is already applied (by checking values of front/back)
+        const existingIndices = [];
+        character.layers.forEach((l, index) => {
+          if (l.category === 'hair') {
+            if (
+              (item.front && l.value === item.front) ||
+              (item.back && l.value === item.back) ||
+              (item.value && l.value === item.value)
+            ) {
+              existingIndices.push(index);
+            }
+          }
+        });
+
+        if (existingIndices.length > 0) {
+          // Remove all layers associated with this hair item
+          // Sort descending to splice correctly
+          existingIndices.sort((a, b) => b - a);
+          existingIndices.forEach((idx) => {
+            character.layers.splice(idx, 1);
+          });
+        } else {
+          // Add Hair Layers
+          const timestamp = Date.now();
+
+          // 1. Back Hair (Behind Body -> Start of list)
+          if (item.back) {
+            const backLayer = {
+              id: timestamp + '_back',
+              type: 'image',
+              label: item.label + ' (หลัง)',
+              value: item.back,
+              category: 'hair',
+              color: '#ffffff',
+            };
+            character.layers.unshift(backLayer); // Add to bottom
+          }
+
+          // 2. Front Hair (In front of Body -> End of list)
+          if (item.front) {
+            const frontLayer = {
+              id: timestamp + '_front',
+              type: 'image',
+              label: item.label + ' (หน้า)',
+              value: item.front,
+              category: 'hair',
+              color: '#ffffff',
+            };
+            character.layers.push(frontLayer);
+            activeLayerId.value = frontLayer.id;
+          }
+
+          // 3. Single/Value Hair
+          if (item.value) {
+            const valLayer = {
+              id: timestamp,
+              type: 'image',
+              label: item.label,
+              value: item.value,
+              category: 'hair',
+              color: '#ffffff',
+            };
+            character.layers.push(valLayer);
+            activeLayerId.value = valLayer.id;
+          }
+        }
+      } else if (currentCategory.value) {
         // Generalized Toggle logic for any face part (hair, ears, face) that might match grouping
         // Check if item is composite
         if (item.front || item.back || item.stroke || item.bg) {
@@ -716,85 +848,72 @@ const handleSliderSelect = (item) => {
       }
       playSplatSound();
     } else if (activePopup.value === 'clothes') {
-      if (currentCategory.value) {
-        // Toggle logic
+      // Limitless Clothes Logic with Toggle
+      // Check if this item is already in layers
+      const existingIndex = character.layers.findIndex(
+        (l) => l.type === 'image' && l.value === item.value
+      );
 
-        // Check if complex item
-        if (item.front || item.back || item.stroke || item.bg) {
-          const current = character.clothes[currentCategory.value];
-
-          // Check generic equality (id or generic match)
-          const isSame =
-            current && typeof current === 'object' && current.id === item.id;
-
-          if (isSame) {
-            character.clothes[currentCategory.value] = null;
-          } else {
-            character.clothes[currentCategory.value] = {
-              front: item.front,
-              back: item.back,
-              stroke: item.stroke,
-              bg: item.bg,
-              color: '#ffffff',
-              id: item.id,
-              label: item.label,
-            };
-          }
-        } else {
-          // Legacy string logic
-          // Check if current is string or object (if object, definitely not same as this string item)
-          const current = character.clothes[currentCategory.value];
-          if (
-            current === item.value ||
-            (current && current.value === item.value)
-          ) {
-            // Basic check
-            character.clothes[currentCategory.value] = null; // Remove if same
-          } else {
-            character.clothes[currentCategory.value] = item.value;
-          }
+      if (existingIndex !== -1) {
+        // Remove existing
+        character.layers.splice(existingIndex, 1);
+      } else {
+        // Add new layer
+        const newId = Date.now();
+        const newLayer = {
+          id: newId,
+          type: 'image', // Treat as generic image to allow limitless stacking
+          label: item.label,
+          value: item.value || null,
+          stroke: item.stroke || null,
+          bg: item.bg || null,
+          category: currentCategory.value, // Add category for reset functionality
+          color: '#ffffff',
+        };
+        character.layers.push(newLayer);
+        if (newLayer.bg || newLayer.value) {
+          activeLayerId.value = newId;
         }
       }
       playSplatSound();
+      // No sync needed for limitless layers, they are added directly.
+      // But we call sync for other things if needed.
+      syncCharacterLayers();
     } else if (activePopup.value === 'etc') {
-      // Add new layer
-      // Toggle Etc Layer
-      if (currentCategory.value) {
-        const existingIndex = character.layers.findIndex(
-          (l) => l.value === item.value && l.category === currentCategory.value
-        );
+      // Etc Logic with Toggle
+      const existingIndex = character.layers.findIndex(
+        (l) =>
+          l.type === 'image' &&
+          l.value === item.value &&
+          l.category === currentCategory.value
+      );
 
-        if (existingIndex !== -1) {
-          // Remove if exists
-          const removedId = character.layers[existingIndex].id;
-          character.layers.splice(existingIndex, 1);
-          if (activeLayerId.value === removedId) {
-            activeLayerId.value = null;
-          }
-        } else {
-          // Add if not exists
-          const newId = Date.now();
-          const newLayer = {
-            id: newId,
-            type: 'image',
-            label: item.label,
-            value: item.value,
-            category: currentCategory.value,
-            front: item.front || null,
-            back: item.back || null,
-            stroke: item.stroke || null,
-            bg: item.bg || null,
-            color: '#ffffff', // Default color for tintable layers
-          };
-          character.layers.push(newLayer);
-
-          if (newLayer.bg) {
-            activeLayerId.value = newId;
-          }
+      if (existingIndex !== -1) {
+        // Remove existing
+        character.layers.splice(existingIndex, 1);
+      } else {
+        // Add new ETC layer
+        const newId = item.id || Date.now();
+        const newLayer = {
+          id: newId,
+          type: 'image',
+          label: item.label,
+          value: item.value,
+          stroke: item.stroke,
+          bg: item.bg,
+          category: currentCategory.value, // Essential for highlight/reset
+          color: '#ffffff',
+        };
+        character.layers.push(newLayer);
+        if (newLayer.bg || newLayer.value) {
+          activeLayerId.value = newId;
         }
-        playSplatSound();
       }
+      playSplatSound();
+      return; // Return early for ETC as it pushes its own layer
     }
+    syncCharacterLayers();
+    playSplatSound();
   }
 };
 
@@ -938,10 +1057,15 @@ const currentSelectedValue = computed(() => {
     currentMode.value === 'folder' ||
     currentMode.value === 'category'
   ) {
-    // Determine which character part maps to the current category to highlight selection
     if (activePopup.value === 'face') {
+      if (currentCategory.value === 'hair') {
+        // Limitless Hair: Return array of values from hair layers
+        return character.layers
+          .filter((l) => l.category === 'hair')
+          .map((l) => l.value);
+      }
+
       if (currentCategory.value) {
-        // Return string or object reference?
         // PopupSlider compares by value or reference.
         // If items have value as string, we need to match string.
         const val = character.face[currentCategory.value];
@@ -954,9 +1078,10 @@ const currentSelectedValue = computed(() => {
       }
       return null;
     } else if (activePopup.value === 'clothes') {
-      return currentCategory.value
-        ? character.clothes[currentCategory.value]
-        : null;
+      // Limitless Clothes: Return array of all active layer values
+      return character.layers
+        .filter((l) => l.type === 'image') // Limit to image layers (clothes/etc)
+        .map((l) => l.value);
     } else if (activePopup.value === 'etc') {
       // Return array of values for the current category to highlight all matching layers
       if (currentCategory.value) {
@@ -1026,10 +1151,10 @@ const categoryLabel = computed(() => {
 
     <div v-if="showResetConfirm && !isFinished" class="reset-modal-overlay">
       <div class="reset-modal">
-        <p>คุณต้องการรีเซ็ตตัวละครใช่ไหม?<br />(Reset Character?)</p>
+        <p>คุณต้องการรีเซ็ตตัวละครใช่ไหม?</p>
         <div class="modal-buttons">
-          <button @click="confirmReset" class="confirm-btn">ใช่ (Yes)</button>
-          <button @click="cancelReset" class="cancel-btn">ไม่ (No)</button>
+          <button @click="confirmReset" class="confirm-btn">ช่าย</button>
+          <button @click="cancelReset" class="cancel-btn">ม่าย</button>
         </div>
       </div>
     </div>
@@ -1278,8 +1403,7 @@ const categoryLabel = computed(() => {
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.music-btn,
-.layer-btn {
+.music-btn {
   position: absolute;
   top: 1rem;
   background: white;
@@ -1292,12 +1416,27 @@ const categoryLabel = computed(() => {
   justify-content: center;
   box-shadow: 4px 4px 0px #000;
   cursor: pointer;
-  z-index: 20;
+  z-index: 2500; /* High z-index to stay above overlays/popups */
   transition: transform 0.1s active;
+  right: 1rem;
 }
 
-.music-btn {
-  right: 1rem;
+.reset-btn,
+.layer-btn {
+  position: absolute;
+  top: 1rem;
+  background-color: #ffffff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 0px #000;
+  cursor: pointer;
+  z-index: 2500; /* High z-index to stay above overlays/popups */
+  transition: transform 0.1s active;
 }
 
 .layer-btn {
@@ -1328,11 +1467,14 @@ const categoryLabel = computed(() => {
   /* Neo-brutalism style */
   border: 2px solid #000;
   box-shadow: 6px 6px 0px #000;
+}
 
-  width: 280px;
-  max-height: 300px;
+.layer-dropdown {
+  width: 280px; /* Increased to 280px */
+  max-height: 50vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Constrain content */
 }
 
 .layer-dropdown .popup-header {
