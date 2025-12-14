@@ -3,8 +3,7 @@
 <template>
   <div class="logo-screen">
     <div class="logo-container">
-      <img src="/vite.svg" class="logo" alt="Logo" />
-      <h1>จกโกะบุ๋ง</h1>
+      <img src="/templates/logo/logo.PNG" class="logo" alt="JokoBung Logo" />
     </div>
   </div>
 </template>
@@ -30,16 +29,10 @@
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-h1 {
-  font-size: 2em;
-  margin-top: 0.5em;
-  color: #000;
+  max-width: 80%; /* Ensure it fits on screen */
+  height: auto;
+  padding: 1.5em; /* Keep potential spacing or remove if not needed */
+  animation: pulse 2s infinite ease-in-out;
 }
 
 @keyframes scaleIn {
@@ -50,6 +43,18 @@ h1 {
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

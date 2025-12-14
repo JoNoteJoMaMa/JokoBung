@@ -79,7 +79,7 @@ defineEmits(['toggle-popup', 'finish']);
           ></path>
         </svg>
       </div>
-      <span>เสื้อผ้า</span>
+      <span>เครื่องประดับ</span>
     </button>
     <button
       class="nav-btn"
@@ -121,7 +121,7 @@ defineEmits(['toggle-popup', 'finish']);
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
       </div>
-      <span>เสร็จแล้วจ้า</span>
+      <span>เสร็จ</span>
     </button>
   </div>
 </template>
@@ -141,39 +141,43 @@ defineEmits(['toggle-popup', 'finish']);
 .nav-btn {
   pointer-events: auto;
   background: #ffffff;
-  border: 1px solid #eee;
-  color: #666;
-  font-size: 0.8rem;
+  border: 2px solid #000;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  width: 90px;
-  height: 90px;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #000;
+  transition: transform 0.1s, box-shadow 0.1s;
   cursor: pointer;
 }
 
 .nav-btn:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000;
 }
 
 .nav-btn.active {
-  color: #fff;
-  background-color: #213547; /* Dark active state */
-  font-weight: bold;
+  color: #000;
+  background-color: #ffd700; /* Gold/Yellow for active */
+  background-color: #a7f3d0; /* Mint */
+  background-color: #fcd34d; /* Amber */
+  /* Let's stick with a nice accent color, maybe standard branding? Using Amber/Yellow for 'pop' */
+  border-color: #000;
 }
 
 .nav-btn.finish {
-  color: #4caf50;
-  border-color: #e8f5e9;
+  background-color: #4ade80; /* Green */
+  color: #000;
 }
 .nav-btn.finish:active {
-  background-color: #e8f5e9;
+  background-color: #22c55e;
 }
 
 .icon-box {

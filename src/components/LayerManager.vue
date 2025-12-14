@@ -1,6 +1,5 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue';
-import SkeletonImage from './SkeletonImage.vue';
+import { defineProps, defineEmits, computed } from 'vue';
 
 const props = defineProps({
   layers: {
@@ -11,22 +10,30 @@ const props = defineProps({
 
 const emit = defineEmits(['reorder', 'remove', 'add']);
 
-const moveUp = (index) => {
-  if (index > 0) {
+// Display layers from Front (High Index) to Back (Low Index)
+const displayLayers = computed(() => {
+  return props.layers.map((layer, index) => ({ layer, index })).reverse();
+});
+
+const moveUp = (originalIndex) => {
+  // Move towards Front (Higher Index)
+  // If we are at the top (length-1), we can't move up.
+  if (originalIndex < props.layers.length - 1) {
     const newLayers = [...props.layers];
-    const temp = newLayers[index];
-    newLayers[index] = newLayers[index - 1];
-    newLayers[index - 1] = temp;
+    const temp = newLayers[originalIndex];
+    newLayers[originalIndex] = newLayers[originalIndex + 1];
+    newLayers[originalIndex + 1] = temp;
     emit('reorder', newLayers);
   }
 };
 
-const moveDown = (index) => {
-  if (index < props.layers.length - 1) {
+const moveDown = (originalIndex) => {
+  // Move towards Back (Lower Index)
+  if (originalIndex > 0) {
     const newLayers = [...props.layers];
-    const temp = newLayers[index];
-    newLayers[index] = newLayers[index + 1];
-    newLayers[index + 1] = temp;
+    const temp = newLayers[originalIndex];
+    newLayers[originalIndex] = newLayers[originalIndex - 1];
+    newLayers[originalIndex - 1] = temp;
     emit('reorder', newLayers);
   }
 };
@@ -44,43 +51,43 @@ const removeLayer = (index) => {
   <div class="layer-manager">
     <div class="layer-list">
       <div
-        v-for="(layer, index) in layers"
-        :key="layer.id || index"
+        v-for="item in displayLayers"
+        :key="item.layer.id || item.index"
         class="layer-item"
-        :class="{ 'is-character': layer.type === 'character' }"
+        :class="{ 'is-character': item.layer.type === 'character' }"
       >
-        <div class="layer-thumb">
-          <SkeletonImage
-            v-if="layer.type === 'image'"
-            :src="layer.value"
-            alt="Thumb"
-            class="thumb-img"
-          />
-          <div v-else class="char-placeholder">👤</div>
+        <!-- Thumbnail (Character Only) -->
+        <div v-if="item.layer.type === 'character'" class="layer-thumb">
+          <div class="char-placeholder">👤</div>
         </div>
+
         <div class="layer-info">
-          <span class="layer-name">{{ layer.label }}</span>
+          <span class="layer-name">{{ item.layer.label }}</span>
         </div>
         <div class="layer-controls">
+          <!-- Visual UP (Swaps with item above in list, which is Higher Index + 1) -->
           <button
-            @click="moveUp(index)"
-            :disabled="index === 0"
+            @click="moveUp(item.index)"
+            :disabled="item.index === layers.length - 1"
             class="ctrl-btn"
+            title="Bring Forward"
           >
             ↑
           </button>
+          <!-- Visual DOWN (Swaps with item below in list, which is Lower Index - 1) -->
           <button
-            @click="moveDown(index)"
-            :disabled="index === layers.length - 1"
+            @click="moveDown(item.index)"
+            :disabled="item.index === 0"
             class="ctrl-btn"
+            title="Send Backward"
           >
             ↓
           </button>
           <button
-            @click="removeLayer(index)"
+            @click="removeLayer(item.index)"
             class="ctrl-btn delete-btn"
-            :disabled="layer.type === 'character'"
-            v-if="layer.type !== 'character'"
+            :disabled="item.layer.type === 'character'"
+            v-if="item.layer.type !== 'character'"
           >
             ×
           </button>

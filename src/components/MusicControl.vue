@@ -6,19 +6,26 @@ const props = defineProps({
     type: Number,
     default: 0.3,
   },
+  isOpen: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const musicVolume = ref(props.initialVolume);
 const splatVolume = ref(0.5);
 const flashVolume = ref(0.5);
-const isOpen = ref(false);
 const isPlaying = ref(false);
 const isMusicMuted = ref(false);
 const isSplatMuted = ref(false);
 const isFlashMuted = ref(false);
 const audio = ref(null);
 
-const emit = defineEmits(['update-splat-volume', 'update-flash-volume']);
+const emit = defineEmits([
+  'update-splat-volume',
+  'update-flash-volume',
+  'toggle',
+]);
 
 // Watchers to emit volume updates
 watch([splatVolume, isSplatMuted], () => {
@@ -91,7 +98,7 @@ const toggleFlashMute = () => {
 };
 
 const togglePopup = () => {
-  isOpen.value = !isOpen.value;
+  emit('toggle');
 };
 
 // Helper toggles removed in favor of mute toggles
@@ -99,7 +106,7 @@ const togglePopup = () => {
 
 <template>
   <div class="music-control">
-    <button class="music-btn" @click="togglePopup">
+    <button class="music-btn" :class="{ active: isOpen }" @click="togglePopup">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -272,30 +279,35 @@ const togglePopup = () => {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border: 2px solid #000;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  color: #213547;
-  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 4px 4px 0px #000;
+  color: #000;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .music-btn:hover {
-  background-color: #fff;
-  transform: scale(1.05);
+  background-color: #ffffff;
+}
+
+.music-btn:active,
+.music-btn.active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000;
+  background-color: #f0f0f0;
 }
 
 .volume-popup {
   margin-top: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #ffffff;
   padding: 0.8rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(5px);
-  border: 1px solid #eee;
+  border: 2px solid #000;
+  box-shadow: 6px 6px 0px #000;
   min-width: 200px;
 }
 

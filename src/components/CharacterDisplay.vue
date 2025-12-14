@@ -13,8 +13,9 @@ const props = defineProps({
   face: {
     type: Object,
     default: () => ({
-      hair: null,
+      hair: null, // can be string or { front, back }
       face: null,
+      ears: null, // Add ears to default if missing logic for it
     }),
   },
   clothes: {
@@ -24,8 +25,8 @@ const props = defineProps({
       shirt: null,
       pant: null,
       shoes: null,
-      left_hand: null,
-      right_hand: null,
+      shoes: null,
+      hands: null,
     }),
   },
   layers: {
@@ -52,8 +53,8 @@ const props = defineProps({
 
 const bodySkinStyle = computed(() => ({
   backgroundColor: props.color,
-  maskImage: 'url(/templates/bodies/Body_skin.PNG)',
-  webkitMaskImage: 'url(/templates/bodies/Body_skin.PNG)',
+  maskImage: 'url("/templates/bodies/Body_skin.PNG")',
+  webkitMaskImage: 'url("/templates/bodies/Body_skin.PNG")',
   maskSize: 'contain',
   webkitMaskSize: 'contain',
   maskRepeat: 'no-repeat',
@@ -64,8 +65,8 @@ const bodySkinStyle = computed(() => ({
 
 const eyeInnerStyle = computed(() => ({
   backgroundColor: props.eyeColor,
-  maskImage: 'url(/templates/faces/Inner_eye.PNG)',
-  webkitMaskImage: 'url(/templates/faces/Inner_eye.PNG)',
+  maskImage: 'url("/templates/faces/Inner_eye.PNG")',
+  webkitMaskImage: 'url("/templates/faces/Inner_eye.PNG")',
   maskSize: 'contain',
   webkitMaskSize: 'contain',
   maskRepeat: 'no-repeat',
@@ -75,14 +76,33 @@ const eyeInnerStyle = computed(() => ({
 }));
 
 const earsSkinStyle = computed(() => {
-  const earPath = props.face.ears || '/templates/ears/Ears_lineart.PNG';
-  // Replace 'lineart' with 'skin' for the mask (case-insensitive replace if needed, but assuming strict naming for now)
-  const maskPath = earPath.replace(/lineart/i, 'skin');
+  const e = props.face.ears;
+  if (!e) return { display: 'none' }; // Hide if null
+
+  let maskPath = '/templates/ears/Ears_skin.PNG'; // Default fallback
+  let bgColor = props.color;
+
+  if (e) {
+    bgColor = props.earsColor || props.color;
+    if (typeof e === 'string') {
+      // Legacy string path
+      if (e.includes('lineart')) {
+        maskPath = e.replace(/lineart/i, 'skin');
+      } else {
+        maskPath = e.replace(/lineart/i, 'skin');
+      }
+    } else if (typeof e === 'object' && e.bg) {
+      maskPath = e.bg;
+      if (e.color) {
+        bgColor = e.color;
+      }
+    }
+  }
 
   return {
-    backgroundColor: props.color,
-    maskImage: `url(${maskPath})`,
-    webkitMaskImage: `url(${maskPath})`,
+    backgroundColor: bgColor,
+    maskImage: `url('${maskPath}')`,
+    webkitMaskImage: `url('${maskPath}')`,
     maskSize: 'contain',
     webkitMaskSize: 'contain',
     maskRepeat: 'no-repeat',
@@ -90,6 +110,58 @@ const earsSkinStyle = computed(() => {
     maskPosition: 'center',
     webkitMaskPosition: 'center',
   };
+});
+
+const hairFrontUrl = computed(() => {
+  const h = props.face.hair;
+  if (!h) return null;
+  if (typeof h === 'string') return h;
+  return h.front;
+});
+
+const hairBackUrl = computed(() => {
+  const h = props.face.hair;
+  if (!h) return null;
+  if (typeof h === 'string') return null; // Strings are assumed front-only (legacy/single)
+  return h.back;
+});
+
+const earsUrl = computed(() => {
+  const e = props.face.ears;
+  if (!e) return null; // Hide if null
+  if (typeof e === 'string') return e;
+  return e.stroke || e.front || e.value;
+});
+
+const faceUrl = computed(() => {
+  const f = props.face.face;
+  if (!f) return null; // Or default?
+  if (typeof f === 'string') return f;
+  return f.stroke || f.front || f.value;
+});
+
+// Check if we should show the default inner eye
+const showInnerEye = computed(() => {
+  const f = props.face.face;
+  // Default: Show if no face selected (null) or if it IS the template face (default value)
+  if (!f || f === '/templates/faces/Eye.PNG') return true;
+
+  // Check for _template_face_bg Exception
+  let filename = '';
+  if (typeof f === 'string') {
+    filename = f;
+  } else if (typeof f === 'object' && f.bg) {
+    filename = f.bg;
+  } else if (typeof f === 'object' && f.value) {
+    filename = f.value;
+  }
+
+  if (filename && filename.toLowerCase().includes('_template_face_bg')) {
+    return true;
+  }
+
+  // Otherwise hide
+  return false;
 });
 </script>
 
@@ -101,6 +173,14 @@ const earsSkinStyle = computed(() => {
         v-if="layer.type === 'character'"
         class="layer-group character-composite"
       >
+        <!-- Hair Back Layer -->
+        <img
+          v-if="hairBackUrl"
+          :src="hairBackUrl"
+          class="layer hair-back"
+          alt="Hair Back"
+        />
+
         <!-- Body Layer -->
         <div class="layer body-skin" :style="bodySkinStyle"></div>
         <img
@@ -112,68 +192,333 @@ const earsSkinStyle = computed(() => {
         <!-- Ears Layers -->
         <div class="layer ears-skin" :style="earsSkinStyle"></div>
         <img
-          :src="props.face.ears || '/templates/ears/Ears_lineart.PNG'"
+          v-if="earsUrl"
+          :src="earsUrl"
           class="layer ears-lineart"
           alt="Ears Lineart"
         />
 
         <!-- Face Layer -->
-        <div class="layer eye-inner" :style="eyeInnerStyle"></div>
+        <div
+          v-if="showInnerEye"
+          class="layer eye-inner"
+          :style="eyeInnerStyle"
+        ></div>
+
+        <!-- Generic Face Features (can be object or string) -->
+        <template
+          v-if="
+            face.face &&
+            typeof face.face === 'object' &&
+            (face.face.bg || face.face.stroke)
+          "
+        >
+          <!-- Special Case: Template Face BG (No tint, normal image) -->
+          <img
+            v-if="
+              face.face.bg &&
+              face.face.bg.toLowerCase().includes('_template_face_bg')
+            "
+            :src="face.face.bg"
+            class="layer face-features-bg"
+            alt="Face Features BG"
+          />
+          <!-- Standard Case: Tintable BG (Mask) -->
+          <div
+            v-else-if="face.face.bg"
+            class="layer face-features-bg"
+            :style="{
+              backgroundColor: face.face.color || '#ffffff',
+              maskImage: `url('${face.face.bg}')`,
+              webkitMaskImage: `url('${face.face.bg}')`,
+              maskSize: 'contain',
+              webkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              webkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              webkitMaskPosition: 'center',
+            }"
+          ></div>
+
+          <img
+            v-if="face.face.stroke"
+            :src="face.face.stroke"
+            class="layer face-features"
+            alt="Face Features Stroke"
+          />
+        </template>
         <img
-          v-if="face.face"
-          :src="face.face"
+          v-else-if="faceUrl"
+          :src="faceUrl"
           class="layer face-features"
           alt="Face Features"
         />
-        <img v-if="face.hair" :src="face.hair" class="layer hair" alt="Hair" />
+
+        <!-- Hair Front moved to end -->
 
         <!-- Clothes Layers -->
+        <!-- Shoes -->
+        <template
+          v-if="
+            clothes.shoes &&
+            typeof clothes.shoes === 'object' &&
+            (clothes.shoes.bg || clothes.shoes.stroke)
+          "
+        >
+          <div
+            v-if="clothes.shoes.bg"
+            class="layer shoes-bg"
+            :style="{
+              backgroundColor: clothes.shoes.color || '#ffffff',
+              maskImage: `url(${clothes.shoes.bg})`,
+              webkitMaskImage: `url(${clothes.shoes.bg})`,
+              maskSize: 'contain',
+              webkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              webkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              webkitMaskPosition: 'center',
+            }"
+          ></div>
+          <img
+            v-if="clothes.shoes.stroke"
+            :src="clothes.shoes.stroke"
+            class="layer shoes"
+            alt="Shoes Stroke"
+          />
+        </template>
         <img
-          v-if="clothes.shoes"
+          v-else-if="clothes.shoes"
           :src="clothes.shoes"
           class="layer shoes"
           alt="Shoes"
         />
+
+        <!-- Pant -->
+        <template
+          v-if="
+            clothes.pant &&
+            typeof clothes.pant === 'object' &&
+            (clothes.pant.bg || clothes.pant.stroke)
+          "
+        >
+          <div
+            v-if="clothes.pant.bg"
+            class="layer pant-bg"
+            :style="{
+              backgroundColor: clothes.pant.color || '#ffffff',
+              maskImage: `url(${clothes.pant.bg})`,
+              webkitMaskImage: `url(${clothes.pant.bg})`,
+              maskSize: 'contain',
+              webkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              webkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              webkitMaskPosition: 'center',
+            }"
+          ></div>
+          <img
+            v-if="clothes.pant.stroke"
+            :src="clothes.pant.stroke"
+            class="layer pant"
+            alt="Pant Stroke"
+          />
+        </template>
         <img
-          v-if="clothes.pant"
+          v-else-if="clothes.pant"
           :src="clothes.pant"
           class="layer pant"
           alt="Pant"
         />
+
+        <!-- Shirt -->
+        <template
+          v-if="
+            clothes.shirt &&
+            typeof clothes.shirt === 'object' &&
+            (clothes.shirt.bg || clothes.shirt.stroke)
+          "
+        >
+          <div
+            v-if="clothes.shirt.bg"
+            class="layer shirt-bg"
+            :style="{
+              backgroundColor: clothes.shirt.color || '#ffffff',
+              maskImage: `url(${clothes.shirt.bg})`,
+              webkitMaskImage: `url(${clothes.shirt.bg})`,
+              maskSize: 'contain',
+              webkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              webkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              webkitMaskPosition: 'center',
+            }"
+          ></div>
+          <img
+            v-if="clothes.shirt.stroke"
+            :src="clothes.shirt.stroke"
+            class="layer shirt"
+            alt="Shirt Stroke"
+          />
+        </template>
         <img
-          v-if="clothes.shirt"
+          v-else-if="clothes.shirt"
           :src="clothes.shirt"
           class="layer shirt"
           alt="Shirt"
         />
+
+        <!-- Head -->
+        <template
+          v-if="
+            clothes.head &&
+            typeof clothes.head === 'object' &&
+            (clothes.head.bg || clothes.head.stroke)
+          "
+        >
+          <div
+            v-if="clothes.head.bg"
+            class="layer head-bg"
+            :style="{
+              backgroundColor: clothes.head.color || '#ffffff',
+              maskImage: `url(${clothes.head.bg})`,
+              webkitMaskImage: `url(${clothes.head.bg})`,
+              maskSize: 'contain',
+              webkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              webkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              webkitMaskPosition: 'center',
+            }"
+          ></div>
+          <img
+            v-if="clothes.head.stroke"
+            :src="clothes.head.stroke"
+            class="layer head"
+            alt="Head Stroke"
+          />
+        </template>
         <img
-          v-if="clothes.head"
+          v-else-if="clothes.head"
           :src="clothes.head"
           class="layer head"
           alt="Head"
         />
+
+        <!-- Hair Front (Top of Clothes, but behind Hands) -->
+        <template
+          v-if="
+            face.hair &&
+            typeof face.hair === 'object' &&
+            (face.hair.bg || face.hair.stroke)
+          "
+        >
+          <div
+            v-if="face.hair.bg"
+            class="layer hair-front-bg"
+            :style="{
+              backgroundColor: face.hair.color || '#ffffff',
+              maskImage: `url('${face.hair.bg}')`,
+              webkitMaskImage: `url('${face.hair.bg}')`,
+              maskSize: 'contain',
+              webkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              webkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              webkitMaskPosition: 'center',
+            }"
+          ></div>
+          <img
+            v-if="face.hair.stroke"
+            :src="face.hair.stroke"
+            class="layer hair-front"
+            alt="Hair Front Stroke"
+          />
+        </template>
         <img
-          v-if="clothes.left_hand"
-          :src="clothes.left_hand"
-          class="layer left-hand"
-          alt="Left Hand"
+          v-else-if="hairFrontUrl"
+          :src="hairFrontUrl"
+          class="layer hair-front"
+          alt="Hair Front"
         />
+
+        <!-- Hands (Top Most) -->
+        <template
+          v-if="
+            clothes.hands &&
+            typeof clothes.hands === 'object' &&
+            (clothes.hands.bg || clothes.hands.stroke)
+          "
+        >
+          <div
+            v-if="clothes.hands.bg"
+            class="layer hands-bg"
+            :style="{
+              backgroundColor: clothes.hands.color || '#ffffff',
+              maskImage: `url('${clothes.hands.bg}')`,
+              webkitMaskImage: `url('${clothes.hands.bg}')`,
+              maskSize: 'contain',
+              webkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              webkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              webkitMaskPosition: 'center',
+            }"
+          ></div>
+          <img
+            v-if="clothes.hands.stroke"
+            :src="clothes.hands.stroke"
+            class="layer hands"
+            alt="Hands Stroke"
+          />
+        </template>
         <img
-          v-if="clothes.right_hand"
-          :src="clothes.right_hand"
-          class="layer right-hand"
-          alt="Right Hand"
+          v-else-if="clothes.hands"
+          :src="clothes.hands"
+          class="layer hands"
+          alt="Hands"
         />
       </div>
 
       <!-- Image Layer (Etc) -->
-      <img
-        v-else-if="layer.type === 'image'"
-        :src="layer.value"
-        class="layer etc-layer"
-        :alt="layer.label"
-        :style="{ zIndex: index }"
-      />
+      <template v-else-if="layer.type === 'image'">
+        <!-- Dual Layer (Stroke/BG) -->
+        <template v-if="layer.stroke || layer.bg">
+          <!-- BG (Tinted) -->
+          <div
+            v-if="layer.bg"
+            class="layer"
+            :style="{
+              backgroundColor: layer.color || '#ffffff',
+              maskImage: `url(${layer.bg})`,
+              webkitMaskImage: `url(${layer.bg})`,
+              maskSize: 'contain',
+              webkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              webkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              webkitMaskPosition: 'center',
+              zIndex: index,
+            }"
+          ></div>
+          <!-- Stroke -->
+          <img
+            v-if="layer.stroke"
+            :src="layer.stroke"
+            class="layer"
+            :alt="layer.label + ' Stroke'"
+            :style="{ zIndex: index }"
+          />
+        </template>
+        <!-- Standard Single Image -->
+        <img
+          v-else
+          :src="layer.value"
+          class="layer etc-layer"
+          :alt="layer.label"
+          :style="{ zIndex: index }"
+        />
+      </template>
     </template>
   </div>
 </template>
@@ -194,7 +539,6 @@ const earsSkinStyle = computed(() => {
   height: 100%;
   object-fit: contain;
   pointer-events: none;
-  border: 1px dashed red; /* Temporary debug outline */
   box-sizing: border-box;
 }
 

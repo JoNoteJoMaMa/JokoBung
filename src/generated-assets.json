@@ -80,28 +80,28 @@
               "value": "/src/assets/faces/face/ซัน/Goth face.PNG"
             },
             {
-              "id": "Hot face",
-              "label": "Hot face",
-              "type": "image",
-              "value": "/src/assets/faces/face/ซัน/Hot face.PNG"
-            },
-            {
               "id": "Hot face_bg",
               "label": "Hot face Bg",
               "type": "image",
               "value": "/src/assets/faces/face/ซัน/Hot face_bg.PNG"
             },
             {
+              "id": "Hot face_stroke",
+              "label": "Hot face Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Hot face_stroke.PNG"
+            },
+            {
+              "id": "Manba face_bg",
+              "label": "Manba face Bg",
+              "type": "image",
+              "value": "/src/assets/faces/face/ซัน/Manba face_bg.PNG"
+            },
+            {
               "id": "Manba face_stroke",
               "label": "Manba face Stroke",
               "type": "image",
               "value": "/src/assets/faces/face/ซัน/Manba face_stroke.PNG"
-            },
-            {
-              "id": "Manba inner eye_bg",
-              "label": "Manba inner eye Bg",
-              "type": "image",
-              "value": "/src/assets/faces/face/ซัน/Manba inner eye_bg.PNG"
             },
             {
               "id": "Ugly hamster ",
@@ -357,6 +357,30 @@
           "type": "folder",
           "children": [
             {
+              "id": "12_bg",
+              "label": "12 Bg",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/12_bg.png"
+            },
+            {
+              "id": "12_stroke",
+              "label": "12 Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/12_stroke.png"
+            },
+            {
+              "id": "16_bg",
+              "label": "16 Bg",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/16_bg.png"
+            },
+            {
+              "id": "16_stroke",
+              "label": "16 Stroke",
+              "type": "image",
+              "value": "/src/assets/faces/hair/วิว/16_stroke.png"
+            },
+            {
               "id": "19",
               "label": "19",
               "type": "image",
@@ -397,44 +421,6 @@
               "label": "3 Stroke",
               "type": "image",
               "value": "/src/assets/faces/hair/วิว/3_stroke.png"
-            },
-            {
-              "id": "ผม",
-              "label": "ผม",
-              "type": "folder",
-              "children": [
-                {
-                  "id": "12_bg",
-                  "label": "12 Bg",
-                  "type": "image",
-                  "value": "/src/assets/faces/hair/วิว/ผม/12_bg.png"
-                },
-                {
-                  "id": "12_stroke",
-                  "label": "12 Stroke",
-                  "type": "image",
-                  "value": "/src/assets/faces/hair/วิว/ผม/12_stroke.png"
-                }
-              ]
-            },
-            {
-              "id": "ผม2",
-              "label": "ผม2",
-              "type": "folder",
-              "children": [
-                {
-                  "id": "16_bg",
-                  "label": "16 Bg",
-                  "type": "image",
-                  "value": "/src/assets/faces/hair/วิว/ผม2/16_bg.png"
-                },
-                {
-                  "id": "16_stroke",
-                  "label": "16 Stroke",
-                  "type": "image",
-                  "value": "/src/assets/faces/hair/วิว/ผม2/16_stroke.png"
-                }
-              ]
             }
           ]
         },
@@ -450,28 +436,28 @@
           "type": "folder",
           "children": [
             {
-              "id": "ผมม่วงหน้า",
-              "label": "ผมม่วงหน้า",
+              "id": "ผม_back",
+              "label": "ผม Back",
               "type": "image",
-              "value": "/src/assets/faces/hair/เซ็น/ผมม่วงหน้า.png"
+              "value": "/src/assets/faces/hair/เซ็น/ผม_back.png"
             },
             {
-              "id": "ผมหลัง(1)",
-              "label": "ผมหลัง(1)",
+              "id": "ผม_front",
+              "label": "ผม Front",
               "type": "image",
-              "value": "/src/assets/faces/hair/เซ็น/ผมหลัง(1).png"
+              "value": "/src/assets/faces/hair/เซ็น/ผม_front.png"
             },
             {
-              "id": "ผมหลัง",
-              "label": "ผมหลัง",
+              "id": "ผมม่วง_back",
+              "label": "ผมม่วง Back",
               "type": "image",
-              "value": "/src/assets/faces/hair/เซ็น/ผมหลัง.png"
+              "value": "/src/assets/faces/hair/เซ็น/ผมม่วง_back.png"
             },
             {
-              "id": "ผมหลังม่วง",
-              "label": "ผมหลังม่วง",
+              "id": "ผมม่วง_front",
+              "label": "ผมม่วง Front",
               "type": "image",
-              "value": "/src/assets/faces/hair/เซ็น/ผมหลังม่วง.png"
+              "value": "/src/assets/faces/hair/เซ็น/ผมม่วง_front.png"
             }
           ]
         },
@@ -515,16 +501,10 @@
           "type": "folder",
           "children": [
             {
-              "id": "Ju๋(1)",
-              "label": "Ju๋(1)",
-              "type": "image",
-              "value": "/src/assets/clothes/hands/ซัน/Ju๋(1).PNG"
-            },
-            {
               "id": "Ju๋",
               "label": "Ju๋",
               "type": "image",
-              "value": "/src/assets/clothes/hands/ซัน/Ju๋.PNG"
+              "value": "/src/assets/clothes/hands/ซัน/Ju๋.png"
             },
             {
               "id": "Manba phone ",
@@ -1263,13 +1243,7 @@
           "id": "กางเกง",
           "label": "กางเกง",
           "type": "image",
-          "value": "/src/assets/etc/จีโน่/กางเกง.JPG"
-        },
-        {
-          "id": "รองเท้า",
-          "label": "รองเท้า",
-          "type": "image",
-          "value": "/src/assets/etc/จีโน่/รองเท้า.PNG"
+          "value": "/src/assets/etc/จีโน่/กางเกง.png"
         },
         {
           "id": "หนวด",
@@ -1287,7 +1261,7 @@
           "id": "เสื้อ",
           "label": "เสื้อ",
           "type": "image",
-          "value": "/src/assets/etc/จีโน่/เสื้อ.JPG"
+          "value": "/src/assets/etc/จีโน่/เสื้อ.png"
         },
         {
           "id": "เสื้อH",
