@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, watch, onUnmounted } from 'vue';
+const baseUrl = import.meta.env.BASE_URL;
 
 const props = defineProps({
   initialVolume: {
@@ -43,8 +44,19 @@ watch([musicVolume, isMusicMuted], () => {
   }
 });
 
+const handleUserInteraction = () => {
+  if (audio.value && audio.value.paused) {
+    audio.value
+      .play()
+      .then(() => {
+        isPlaying.value = true;
+      })
+      .catch((e) => console.warn('User interaction play failed:', e));
+  }
+};
+
 onMounted(() => {
-  audio.value = new Audio('sound/background_theme.mp3');
+  audio.value = new Audio(`${baseUrl}sound/background_theme.mp3`);
   audio.value.loop = true;
   audio.value.volume = isMusicMuted.value ? 0 : musicVolume.value;
 
@@ -57,14 +69,18 @@ onMounted(() => {
         isPlaying.value = true;
       })
       .catch((error) => {
-        console.warn('Auto-play prevented:', error);
+        console.warn('Auto-play prevented. Waiting for interaction.', error);
         isPlaying.value = false;
-        // User interaction will be required to start
+        // Add one-time listener to start on first click
+        document.addEventListener('click', handleUserInteraction, {
+          once: true,
+        });
       });
   }
 });
 
 onUnmounted(() => {
+  document.removeEventListener('click', handleUserInteraction);
   if (audio.value) {
     audio.value.pause();
     audio.value = null;

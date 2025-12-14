@@ -1,7 +1,7 @@
 <script setup>
 import { ref, nextTick } from 'vue';
 import CharacterDisplay from './CharacterDisplay.vue';
-import html2canvas from 'html2canvas';
+import { toPng, toJpeg } from 'html-to-image';
 
 const props = defineProps({
   character: {
@@ -28,29 +28,34 @@ const saveName = () => {
   isEditingName.value = false;
 };
 
-const characterRef = ref(null);
+const characterContentRef = ref(null);
 const isDownloading = ref(false);
 const showDownloadOptions = ref(false);
 
 const handleDownload = async (format) => {
-  if (!characterRef.value) return;
+  if (!characterContentRef.value) return;
   isDownloading.value = true;
-  showDownloadOptions.value = false; // Close popup
+  showDownloadOptions.value = false;
 
   try {
-    const element = characterRef.value.$el || characterRef.value;
-    const canvas = await html2canvas(element, {
-      backgroundColor: null,
-      scale: 2,
-    });
+    const element = characterContentRef.value.$el || characterContentRef.value;
+    const isPng = format !== 'jpeg';
+
+    const options = {
+      quality: 0.95,
+      backgroundColor: isPng ? null : '#ffffff',
+    };
+
+    const dataUrl = isPng
+      ? await toPng(element, options)
+      : await toJpeg(element, options);
 
     const link = document.createElement('a');
-    const ext = format === 'jpeg' ? 'jpg' : 'png';
-    // Use characterName for filename, sanitized (allow Thai + English)
+    const ext = isPng ? 'png' : 'jpg';
     const validName = characterName.value.trim() || 'โจโกะบุ๋ง';
     const safeName = validName.replace(/[^a-zA-Z0-9\u0E00-\u0E7F\-_]/g, '_');
     link.download = `${safeName}.${ext}`;
-    link.href = canvas.toDataURL(`image/${format}`, 0.9);
+    link.href = dataUrl;
     link.click();
   } catch (error) {
     console.error('Download failed:', error);
@@ -114,8 +119,9 @@ const handleDownload = async (format) => {
       </div>
     </div>
 
-    <div class="display-container" ref="characterRef">
+    <div class="display-container">
       <CharacterDisplay
+        ref="characterContentRef"
         :color="character.color"
         :eye-color="character.eyeColor"
         :face="character.face"
@@ -192,9 +198,10 @@ const handleDownload = async (format) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #ffffff; /* Consistent white bg */
-  padding: 2rem;
+  justify-content: flex-start;
+  overflow-y: auto;
+  background-color: #ffffff;
+  padding: 4rem 1rem;
   box-sizing: border-box;
 }
 
@@ -210,6 +217,7 @@ const handleDownload = async (format) => {
 .display-container {
   width: 300px; /* Output size */
   height: 400px;
+  flex-shrink: 0; /* Prevent shrinking on small screens */
   background-color: #ffffff;
   border-radius: 20px;
   border: 4px solid #000; /* Bold border */

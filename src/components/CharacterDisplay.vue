@@ -146,7 +146,8 @@ const faceUrl = computed(() => {
 const showInnerEye = computed(() => {
   const f = props.face.face;
   // Default: Show if no face selected (null) or if it IS the template face (default value)
-  if (!f || f === 'templates/faces/Eye.PNG') return true;
+  if (!f || (typeof f === 'string' && f.includes('templates/faces/Eye.PNG')))
+    return true;
 
   // Check for _template_face_bg Exception
   let filename = '';

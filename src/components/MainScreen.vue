@@ -244,10 +244,7 @@ const colorCategoryData = computed(() => {
     categories.push({
       id: 'ears_color',
       label: character.face.ears.label,
-      icon: {
-        viewBox: '0 0 24 24',
-        path: 'M19 11H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2m-7 6V11',
-      }, // Reusing paint bucket
+
       type: 'folder',
       children: null,
     });
@@ -262,27 +259,19 @@ const colorCategoryData = computed(() => {
     categories.push({
       id: 'face_color',
       label: character.face.face.label,
-      icon: {
-        viewBox: '0 0 24 24',
-        path: 'M19 11H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2m-7 6V11',
-      },
+
       type: 'folder',
       children: null,
     });
   }
 
-  if (
-    character.face.hair &&
-    typeof character.face.hair === 'object' &&
-    character.face.hair.bg
-  ) {
+  // Check for tintable hair in layers (Limitless Hair)
+  const hairLayer = character.layers.find((l) => l.category === 'hair' && l.bg);
+  if (hairLayer) {
     categories.push({
       id: 'hair_color',
-      label: character.face.hair.label,
-      icon: {
-        viewBox: '0 0 24 24',
-        path: 'M19 11H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2m-7 6V11', // Paint bucket
-      },
+      label: hairLayer.label.replace(/ \((หน้า|หลัง)\)$/, ''), // Clean label
+
       type: 'folder',
       children: null,
     });
@@ -290,40 +279,44 @@ const colorCategoryData = computed(() => {
 
   // Check clothes
   // We need to iterate known clothes categories or keys
+  // Check clothes (Limitless Layers)
   const clothesKeys = ['head', 'shirt', 'pant', 'shoes', 'hands'];
   clothesKeys.forEach((key) => {
-    const item = character.clothes[key];
-    if (item && typeof item === 'object' && item.bg) {
+    const layer = character.layers.find((l) => l.category === key && l.bg);
+    if (layer) {
       categories.push({
-        id: `clothes_${key}_color`, // specific ID to know which part to color
-        label: item.label,
-        icon: {
-          viewBox: '0 0 24 24',
-          path: 'M19 11H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2m-7 6V11',
-        },
+        id: `clothes_${key}_color`,
+        label: layer.label, // Use label from layer
+
         type: 'folder',
         children: null,
       });
     }
   });
 
-  // If there is an active tintable layer (Etc), add Item Color category
-  if (activeLayerId.value) {
-    const layer = character.layers.find((l) => l.id === activeLayerId.value);
-    if (layer && layer.bg) {
+  // Check for any other tintable layers (Etc - Persistent)
+  character.layers.forEach((layer) => {
+    if (
+      layer.bg &&
+      ![
+        'hair',
+        'ears',
+        'face',
+        'head',
+        'shirt',
+        'pant',
+        'shoes',
+        'hands',
+      ].includes(layer.category)
+    ) {
       categories.push({
-        id: 'item_color',
+        id: `item_${layer.id}_color`,
         label: layer.label,
-        icon: {
-          viewBox: '0 0 24 24',
-          // Paint bucket or similar
-          path: 'M19 11H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2m-7 6V11',
-        },
         type: 'folder',
         children: null,
       });
     }
-  }
+  });
 
   return categories;
 });
@@ -534,7 +527,7 @@ const flashVolume = ref(0.5);
 
 const playSplatSound = () => {
   if (splatVolume.value <= 0) return;
-  const audio = new Audio('sound/splat.mp3');
+  const audio = new Audio(`${baseUrl}sound/splat.mp3`);
   audio.volume = splatVolume.value;
   audio.play().catch((e) => console.error('Error playing splat:', e));
 };
@@ -594,23 +587,29 @@ const handleSliderSelect = (item) => {
         character.face.face.color = item.value;
       }
     } else if (currentCategory.value === 'hair_color') {
-      if (character.face.hair && typeof character.face.hair === 'object') {
-        character.face.hair.color = item.value;
-      }
+      character.layers.forEach((l) => {
+        if (l.category === 'hair') {
+          l.color = item.value;
+        }
+      });
     } else if (currentCategory.value.startsWith('clothes_')) {
       const part = currentCategory.value
         .replace('clothes_', '')
         .replace('_color', '');
-      // Logic above constructed id as `clothes_${key}_color`
-      // So we extract key.
-      if (
-        character.clothes[part] &&
-        typeof character.clothes[part] === 'object'
-      ) {
-        character.clothes[part].color = item.value;
-      }
-    } else if (currentCategory.value === 'item_color') {
-      const layer = character.layers.find((l) => l.id === activeLayerId.value);
+
+      character.layers.forEach((l) => {
+        if (l.category === part) {
+          l.color = item.value;
+        }
+      });
+    } else if (
+      currentCategory.value.startsWith('item_') &&
+      currentCategory.value.endsWith('_color')
+    ) {
+      const idStr = currentCategory.value
+        .replace('item_', '')
+        .replace('_color', '');
+      const layer = character.layers.find((l) => String(l.id) === idStr);
       if (layer) {
         layer.color = item.value;
       }
@@ -623,7 +622,9 @@ const handleSliderSelect = (item) => {
     item.type === 'category' ||
     item.id === 'skin' ||
     item.id === 'eyes' ||
-    item.id === 'item_color' ||
+    (typeof item.id === 'string' &&
+      item.id.startsWith('item_') &&
+      item.id.endsWith('_color')) ||
     item.id === 'ears_color' ||
     item.id === 'face_color' ||
     item.id === 'hair_color' ||
@@ -635,7 +636,11 @@ const handleSliderSelect = (item) => {
       pushNavigation(colorList.value, 'color', null); // Label handled by category
     } else if (item.id === 'eyes') {
       pushNavigation(colorList.value, 'color', null);
-    } else if (item.id === 'item_color') {
+    } else if (
+      typeof item.id === 'string' &&
+      item.id.startsWith('item_') &&
+      item.id.endsWith('_color')
+    ) {
       pushNavigation(colorList.value, 'color', null);
     } else if (item.id === 'ears_color') {
       pushNavigation(colorList.value, 'color', null);
@@ -674,13 +679,16 @@ const handleSliderSelect = (item) => {
       if (currentCategory.value) {
         // Special case: Default face means resetting to Eye template, not null
         if (currentCategory.value === 'face') {
-          character.face[currentCategory.value] = `${baseUrl}templates/faces/Eye.PNG`;
+          character.face[
+            currentCategory.value
+          ] = `${baseUrl}templates/faces/Eye.PNG`;
         } else if (currentCategory.value === 'ears') {
           if (item.id === 'none_ears') {
             character.face[currentCategory.value] = null;
           } else {
-            character.face[currentCategory.value] =
-              `${baseUrl}templates/ears/Ears_lineart.PNG`;
+            character.face[
+              currentCategory.value
+            ] = `${baseUrl}templates/ears/Ears_lineart.PNG`;
           }
         } else if (currentCategory.value === 'hair') {
           // Reset Hair: Remove only items visible in the current folder
@@ -777,6 +785,8 @@ const handleSliderSelect = (item) => {
               label: item.label + ' (หลัง)',
               value: item.back,
               category: 'hair',
+              bg: item.bg,
+              stroke: item.stroke,
               color: '#ffffff',
             };
             character.layers.unshift(backLayer); // Add to bottom
@@ -790,6 +800,8 @@ const handleSliderSelect = (item) => {
               label: item.label + ' (หน้า)',
               value: item.front,
               category: 'hair',
+              bg: item.bg,
+              stroke: item.stroke,
               color: '#ffffff',
             };
             character.layers.push(frontLayer);
@@ -804,6 +816,8 @@ const handleSliderSelect = (item) => {
               label: item.label,
               value: item.value,
               category: 'hair',
+              bg: item.bg,
+              stroke: item.stroke,
               color: '#ffffff',
             };
             character.layers.push(valLayer);
@@ -847,7 +861,6 @@ const handleSliderSelect = (item) => {
           }
         }
       }
-      playSplatSound();
     } else if (activePopup.value === 'clothes') {
       // Limitless Clothes Logic with Toggle
       // Check if this item is already in layers
@@ -876,7 +889,7 @@ const handleSliderSelect = (item) => {
           activeLayerId.value = newId;
         }
       }
-      playSplatSound();
+
       // No sync needed for limitless layers, they are added directly.
       // But we call sync for other things if needed.
       syncCharacterLayers();
@@ -1007,7 +1020,7 @@ const handleFinish = () => {
 
   // Flash sound volume check
   if (flashVolume.value > 0) {
-    const audio = new Audio('sound/camera_shutter.mp3');
+    const audio = new Audio(`${baseUrl}sound/camera_shutter.mp3`);
     audio.volume = flashVolume.value;
     audio.play().catch((e) => console.error('Error playing sound:', e));
   }
@@ -1504,6 +1517,11 @@ const categoryLabel = computed(() => {
   transition: transform 0.1s active;
 }
 
+.reset-btn svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
 .reset-btn:active {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0px #000;
@@ -1525,17 +1543,18 @@ const categoryLabel = computed(() => {
 .reset-modal {
   background: white;
   border: 4px solid #000;
-  border-radius: 1rem;
-  padding: 2rem;
+  border-radius: 1.5rem;
+  padding: 3rem;
   text-align: center;
   box-shadow: 8px 8px 0px #000;
-  max-width: 80%;
+  max-width: 90%;
+  min-width: 320px;
 }
 
 .reset-modal p {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .modal-buttons {
@@ -1546,7 +1565,8 @@ const categoryLabel = computed(() => {
 
 .confirm-btn,
 .cancel-btn {
-  padding: 0.5rem 1.5rem;
+  padding: 0.8rem 2.5rem;
+  font-size: 1.2rem;
   border: 2px solid #000;
   border-radius: 0.5rem;
   font-weight: bold;

@@ -616,22 +616,10 @@
               "value": "clothes/head/เค/tung tung .PNG"
             },
             {
-              "id": "หมวกฮิตเน",
-              "label": "หมวกฮิตเน",
-              "type": "image",
-              "value": "clothes/head/เค/หมวกฮิตเน.png"
-            },
-            {
               "id": "หัวเน Dark Holme",
               "label": "หัวเน Dark Holme",
               "type": "image",
               "value": "clothes/head/เค/หัวเน Dark Holme.PNG"
-            },
-            {
-              "id": "หัวเนKKK",
-              "label": "หัวเนKKK",
-              "type": "image",
-              "value": "clothes/head/เค/หัวเนKKK.PNG"
             }
           ]
         },
@@ -954,22 +942,10 @@
               "value": "clothes/shirt/เค/ชุดหนังเน Dark Holme.PNG"
             },
             {
-              "id": "ผ้าคลุมเน KKK",
-              "label": "ผ้าคลุมเน KKK",
-              "type": "image",
-              "value": "clothes/shirt/เค/ผ้าคลุมเน KKK.PNG"
-            },
-            {
               "id": "เกราะ Tung Tung",
               "label": "เกราะ Tung Tung",
               "type": "image",
               "value": "clothes/shirt/เค/เกราะ Tung Tung.PNG"
-            },
-            {
-              "id": "เครื่องเเบบฮิตเน",
-              "label": "เครื่องเเบบฮิตเน",
-              "type": "image",
-              "value": "clothes/shirt/เค/เครื่องเเบบฮิตเน.PNG"
             }
           ]
         },
@@ -1120,12 +1096,6 @@
           "value": "etc/จีโน่/เสื้อ.png"
         },
         {
-          "id": "เสื้อH",
-          "label": "เสื้อH",
-          "type": "image",
-          "value": "etc/จีโน่/เสื้อH.PNG"
-        },
-        {
           "id": "เสื้อLux",
           "label": "เสื้อLux",
           "type": "image",
@@ -1187,12 +1157,6 @@
           "label": "Tung Tung Tung Sahur",
           "type": "image",
           "value": "etc/เค/Tung Tung Tung Sahur.PNG"
-        },
-        {
-          "id": "ธงเผด็จการ",
-          "label": "ธงเผด็จการ",
-          "type": "image",
-          "value": "etc/เค/ธงเผด็จการ.PNG"
         }
       ]
     },

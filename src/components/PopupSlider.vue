@@ -339,4 +339,14 @@ const isSelected = (item) => {
   object-fit: contain;
   margin-bottom: 0.2rem;
 }
+
+.folder-box .item-label {
+  min-width: 0;
+  width: 100%;
+  padding: 0 4px;
+  font-size: 0.8rem;
+  overflow-wrap: break-word;
+  margin-top: 0;
+  line-height: 1.2;
+}
 </style>
