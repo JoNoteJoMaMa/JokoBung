@@ -51,10 +51,12 @@ const props = defineProps({
 // 2. We overlay a div with `background-color: props.color` and `mask-image: url(/body.svg)`.
 // This allows gradients too!
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const bodySkinStyle = computed(() => ({
   backgroundColor: props.color,
-  maskImage: 'url("templates/bodies/Body_skin.PNG")',
-  webkitMaskImage: 'url("templates/bodies/Body_skin.PNG")',
+  maskImage: `url("${baseUrl}templates/bodies/Body_skin.PNG")`,
+  webkitMaskImage: `url("${baseUrl}templates/bodies/Body_skin.PNG")`,
   maskSize: 'contain',
   webkitMaskSize: 'contain',
   maskRepeat: 'no-repeat',
@@ -65,8 +67,8 @@ const bodySkinStyle = computed(() => ({
 
 const eyeInnerStyle = computed(() => ({
   backgroundColor: props.eyeColor,
-  maskImage: 'url("templates/faces/Inner_eye.PNG")',
-  webkitMaskImage: 'url("templates/faces/Inner_eye.PNG")',
+  maskImage: `url("${baseUrl}templates/faces/Inner_eye.PNG")`,
+  webkitMaskImage: `url("${baseUrl}templates/faces/Inner_eye.PNG")`,
   maskSize: 'contain',
   webkitMaskSize: 'contain',
   maskRepeat: 'no-repeat',
@@ -79,7 +81,7 @@ const earsSkinStyle = computed(() => {
   const e = props.face.ears;
   if (!e) return { display: 'none' }; // Hide if null
 
-  let maskPath = 'templates/ears/Ears_skin.PNG'; // Default fallback
+  let maskPath = `${baseUrl}templates/ears/Ears_skin.PNG`; // Default fallback
   let bgColor = props.color;
 
   if (e) {
@@ -177,7 +179,7 @@ const showInnerEye = computed(() => {
         <!-- Body -->
         <div class="layer body-skin" :style="bodySkinStyle"></div>
         <img
-          src="/public/templates/bodies/Body_lineart.PNG"
+          :src="`${baseUrl}templates/bodies/Body_lineart.PNG`"
           class="layer body-lineart"
           alt="Body Lineart"
         />

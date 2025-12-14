@@ -1,9 +1,15 @@
-<script setup></script>
+<script setup>
+const baseUrl = import.meta.env.BASE_URL;
+</script>
 
 <template>
   <div class="logo-screen">
     <div class="logo-container">
-      <img src="/public/templates/logo/logo.PNG" class="logo" alt="JokoBung Logo" />
+      <img
+        :src="`${baseUrl}templates/logo/logo.PNG`"
+        class="logo"
+        alt="JokoBung Logo"
+      />
     </div>
   </div>
 </template>

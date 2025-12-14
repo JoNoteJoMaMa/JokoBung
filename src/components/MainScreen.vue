@@ -5,6 +5,7 @@ import BottomNav from './BottomNav.vue';
 import PopupSlider from './PopupSlider.vue';
 import ColorPicker from './ColorPicker.vue';
 import FinishScreen from './FinishScreen.vue';
+const baseUrl = import.meta.env.BASE_URL;
 import MusicControl from './MusicControl.vue';
 import LayerManager from './LayerManager.vue';
 import generatedAssets from '../generated-assets.json';
@@ -126,8 +127,8 @@ const getInitialCharacterState = () => ({
   eyeColor: '#000000',
   face: {
     hair: null,
-    ears: 'templates/ears/Ears_lineart.PNG', // Default ears
-    face: 'templates/faces/Eye.PNG', // Default face (Eyes)
+    ears: `${baseUrl}templates/ears/Ears_lineart.PNG`, // Default ears
+    face: `${baseUrl}templates/faces/Eye.PNG`, // Default face (Eyes)
   },
   clothes: {
     // Legacy fixed slots (unused for rendering now, but kept for safe structure)
@@ -372,7 +373,7 @@ const faceData = [
         id: 'normal_ears',
         label: 'หูปกติ',
         type: 'image',
-        value: 'templates/ears/Ears_lineart.PNG', // Restore default template
+        value: `${baseUrl}templates/ears/Ears_lineart.PNG`, // Restore default template
         style: 'folder', // Render as folder button
         icon: {
           viewBox: '0 0 24 24',
@@ -673,13 +674,13 @@ const handleSliderSelect = (item) => {
       if (currentCategory.value) {
         // Special case: Default face means resetting to Eye template, not null
         if (currentCategory.value === 'face') {
-          character.face[currentCategory.value] = 'templates/faces/Eye.PNG';
+          character.face[currentCategory.value] = `${baseUrl}templates/faces/Eye.PNG`;
         } else if (currentCategory.value === 'ears') {
           if (item.id === 'none_ears') {
             character.face[currentCategory.value] = null;
           } else {
             character.face[currentCategory.value] =
-              'templates/ears/Ears_lineart.PNG';
+              `${baseUrl}templates/ears/Ears_lineart.PNG`;
           }
         } else if (currentCategory.value === 'hair') {
           // Reset Hair: Remove only items visible in the current folder
