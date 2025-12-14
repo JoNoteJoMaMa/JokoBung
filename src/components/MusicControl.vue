@@ -44,7 +44,7 @@ watch([musicVolume, isMusicMuted], () => {
 });
 
 onMounted(() => {
-  audio.value = new Audio('/sound/background_theme.mp3');
+  audio.value = new Audio('sound/background_theme.mp3');
   audio.value.loop = true;
   audio.value.volume = isMusicMuted.value ? 0 : musicVolume.value;
 

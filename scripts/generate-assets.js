@@ -5,11 +5,17 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the source directory (src/assets)
-const ASSETS_DIR = path.join(__dirname, '../src/assets');
+// Define the source directory (public)
+const ASSETS_DIR = path.join(__dirname, '../public');
 const OUTPUT_FILE = path.join(__dirname, '../src/generated-assets.json');
 
-const IGNORE_FILES = ['.DS_Store', 'asset-manifest.json'];
+const IGNORE_FILES = [
+  '.DS_Store',
+  'asset-manifest.json',
+  'vite.svg',
+  'templates',
+  'sound',
+];
 
 // Helper to format labels: "my_folder" -> "My Folder"
 const formatLabel = (name) => {
@@ -47,7 +53,7 @@ const scanDirectory = (dirPath, relativePath) => {
           id: id,
           label: label,
           type: 'image',
-          value: '/' + itemRelativePath, // web-absolute path
+          value: itemRelativePath, // relative path for GH pages compatibility
         });
       }
     }
@@ -67,17 +73,8 @@ const generateAssets = () => {
   categories.forEach((cat) => {
     const catDir = path.join(ASSETS_DIR, cat);
     if (fs.existsSync(catDir)) {
-      // For faces/clothes, the top-level folders are the "Categories" (shirt, pants, etc)
-      // For etc, it's just a folder list.
-      // We will just scan children.
-      // MainScreen.vue expects:
-      // clothes: [ {id: 'shirt', children: [...]}, {id: 'pant', children: [...]} ]
-      // BUT current file system is: public/clothes/shirt/default/image.svg
-      // So scanDirectory('public/clothes') returns:
-      // [ {id: 'shirt', type: 'folder', children: [...]}, ... ]
-      // This matches fairly well with what we need to merge.
-      // Pass 'src/assets/category' as the relative path basis
-      result[cat] = scanDirectory(catDir, `src/assets/${cat}`);
+      // Pass category name as relative path base
+      result[cat] = scanDirectory(catDir, cat);
     }
   });
 

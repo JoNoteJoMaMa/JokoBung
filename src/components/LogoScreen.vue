@@ -3,7 +3,7 @@
 <template>
   <div class="logo-screen">
     <div class="logo-container">
-      <img src="/templates/logo/logo.PNG" class="logo" alt="JokoBung Logo" />
+      <img src="/public/templates/logo/logo.PNG" class="logo" alt="JokoBung Logo" />
     </div>
   </div>
 </template>

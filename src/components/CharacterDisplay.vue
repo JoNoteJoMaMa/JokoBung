@@ -53,8 +53,8 @@ const props = defineProps({
 
 const bodySkinStyle = computed(() => ({
   backgroundColor: props.color,
-  maskImage: 'url("/templates/bodies/Body_skin.PNG")',
-  webkitMaskImage: 'url("/templates/bodies/Body_skin.PNG")',
+  maskImage: 'url("templates/bodies/Body_skin.PNG")',
+  webkitMaskImage: 'url("templates/bodies/Body_skin.PNG")',
   maskSize: 'contain',
   webkitMaskSize: 'contain',
   maskRepeat: 'no-repeat',
@@ -65,8 +65,8 @@ const bodySkinStyle = computed(() => ({
 
 const eyeInnerStyle = computed(() => ({
   backgroundColor: props.eyeColor,
-  maskImage: 'url("/templates/faces/Inner_eye.PNG")',
-  webkitMaskImage: 'url("/templates/faces/Inner_eye.PNG")',
+  maskImage: 'url("templates/faces/Inner_eye.PNG")',
+  webkitMaskImage: 'url("templates/faces/Inner_eye.PNG")',
   maskSize: 'contain',
   webkitMaskSize: 'contain',
   maskRepeat: 'no-repeat',
@@ -79,7 +79,7 @@ const earsSkinStyle = computed(() => {
   const e = props.face.ears;
   if (!e) return { display: 'none' }; // Hide if null
 
-  let maskPath = '/templates/ears/Ears_skin.PNG'; // Default fallback
+  let maskPath = 'templates/ears/Ears_skin.PNG'; // Default fallback
   let bgColor = props.color;
 
   if (e) {
@@ -144,7 +144,7 @@ const faceUrl = computed(() => {
 const showInnerEye = computed(() => {
   const f = props.face.face;
   // Default: Show if no face selected (null) or if it IS the template face (default value)
-  if (!f || f === '/templates/faces/Eye.PNG') return true;
+  if (!f || f === 'templates/faces/Eye.PNG') return true;
 
   // Check for _template_face_bg Exception
   let filename = '';
@@ -177,7 +177,7 @@ const showInnerEye = computed(() => {
         <!-- Body -->
         <div class="layer body-skin" :style="bodySkinStyle"></div>
         <img
-          src="/templates/bodies/Body_lineart.PNG"
+          src="/public/templates/bodies/Body_lineart.PNG"
           class="layer body-lineart"
           alt="Body Lineart"
         />
